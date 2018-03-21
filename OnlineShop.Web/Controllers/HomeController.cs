@@ -10,6 +10,8 @@ namespace OnlineShop.Web.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Message = "Edit index";
+
             return View();
         }
 
