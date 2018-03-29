@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Data.Infrastructure
 {
-    public class DbFactory: Disposable, IDbFactory
+    public class DbFactory : Disposable, IDbFactory
     {
         private OnlineShopDbContext _dbContext;
         public OnlineShopDbContext Init()
@@ -10,7 +10,7 @@
 
         protected override void DisposeCore()
         {
-           if(_dbContext!=null)
+            if (_dbContext != null)
                 _dbContext.Dispose();
         }
     }
