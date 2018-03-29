@@ -6,10 +6,12 @@ namespace OnlineShop.Model.Models
     [Table("OrderDetails")]
     public class OrderDetail
     {
-        [Key]
+        [Key, Column(Order = 1)]
+        //[Column(Order = 1)]
         public int OrderId { get; set; }
 
-        [Key]
+        [Key, Column(Order = 2)]
+        //[Column(Order = 2)]
         public int ProductId { get; set; }
 
         public int Quantity { get; set; }

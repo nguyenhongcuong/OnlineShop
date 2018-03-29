@@ -24,6 +24,8 @@ namespace OnlineShop.Model.Models
         [MaxLength(256)]
         public string Image { get; set; }
 
+        [Column(TypeName = "xml")]
+
         public string MoreImages { get; set; }
 
         [Required]
