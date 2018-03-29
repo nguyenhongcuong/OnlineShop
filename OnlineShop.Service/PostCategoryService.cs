@@ -7,12 +7,13 @@ namespace OnlineShop.Service
 {
     public interface IPostCategoryService
     {
-        void Add(PostCategory postCategory);
+        PostCategory Add(PostCategory postCategory);
         void Update(PostCategory postCategory);
-        void Delete(object id);
+        PostCategory Delete(object id);
         IEnumerable<PostCategory> GetAll();
         IEnumerable<PostCategory> GetAllByParentId(object parentId);
         PostCategory GetById(object id);
+        void Save();
     }
     public class PostCategoryService : IPostCategoryService
     {
@@ -24,9 +25,9 @@ namespace OnlineShop.Service
             _postCategoryRepository = postCategoryRepository;
             _unitOfWork = unitOfWork;
         }
-        public void Add(PostCategory postCategory)
+        public PostCategory Add(PostCategory postCategory)
         {
-            _postCategoryRepository.Add(postCategory);
+            return _postCategoryRepository.Add(postCategory);
         }
 
         public void Update(PostCategory postCategory)
@@ -34,9 +35,9 @@ namespace OnlineShop.Service
             _postCategoryRepository.Update(postCategory);
         }
 
-        public void Delete(object id)
+        public PostCategory Delete(object id)
         {
-            _postCategoryRepository.Delete(id);
+            return _postCategoryRepository.Delete(id);
         }
 
         public IEnumerable<PostCategory> GetAll()
@@ -52,6 +53,11 @@ namespace OnlineShop.Service
         public PostCategory GetById(object id)
         {
             return _postCategoryRepository.GetSingleById((int?)id);
+        }
+
+        public void Save()
+        {
+            _unitOfWork.Commit();
         }
     }
 }
