@@ -3,11 +3,11 @@ using OnlineShop.Model.Models;
 
 namespace OnlineShop.Data.Repositories
 {
-    public interface IMenuGroupRepository : IRepository<MenuGroup>
+    public interface IMenuGroupRepository
     {
-
+        
     }
-    public class MenuGroupRepository : RepositoryBase<MenuGroup>, IMenuGroupRepository
+    public class MenuGroupRepository:RepositoryBase<MenuGroup>,IMenuGroupRepository
     {
         public MenuGroupRepository(IDbFactory dbFactory) : base(dbFactory)
         {

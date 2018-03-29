@@ -55,7 +55,7 @@ namespace OnlineShop.Data.Infrastructure
             }
         }
 
-        public virtual T GetSingleById(int? id)
+        public virtual T GetSingleById(int id)
         {
             return _dbSet.Find(id);
         }
@@ -130,14 +130,6 @@ namespace OnlineShop.Data.Infrastructure
         {
             return _dbContext.Set<T>().Count<T>(predicate) > 0;
         }
-
-        public void Delete(object id)
-        {
-            var entity = _dbSet.Find(id);
-            _dbSet.Remove(entity);
-
-        }
-
         #endregion
     }
 }

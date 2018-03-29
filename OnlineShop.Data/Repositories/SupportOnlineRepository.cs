@@ -3,7 +3,7 @@ using OnlineShop.Model.Models;
 
 namespace OnlineShop.Data.Repositories
 {
-    public interface ISupportOnlineRepository: IRepository<SupportOnline>
+    public interface ISupportOnlineRepository
     {
 
     }

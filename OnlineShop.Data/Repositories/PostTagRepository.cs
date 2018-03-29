@@ -3,7 +3,7 @@ using OnlineShop.Model.Models;
 
 namespace OnlineShop.Data.Repositories
 {
-    public interface IPostTagRepository: IRepository<PostTag>
+    public interface IPostTagRepository
     {
 
     }

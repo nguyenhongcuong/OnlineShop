@@ -3,7 +3,7 @@ using OnlineShop.Model.Models;
 
 namespace OnlineShop.Data.Repositories
 {
-    public interface IPostCategoryRepository: IRepository<PostCategory>
+    public interface IPostCategoryRepository
     {
         
     }
