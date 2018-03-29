@@ -11,7 +11,7 @@ namespace OnlineShop.Service
         void Update(Post post);
         void Delete(int? postId);
         IEnumerable<Post> GetAll();
-        IEnumerable<Post> GetAllPaging(int? page, int? pageSize, out int totalRow);
+        IEnumerable<Post> GetAllPaging(int? postCategoryId, int? page, int? pageSize, out int totalRow);
         Post GetById(int? postId);
         IEnumerable<Post> GetAllByTagPaging(string tagId, int? page, int? pageSize, out int totalRow);
         void SaveChanges();
@@ -40,10 +40,11 @@ namespace OnlineShop.Service
             _postRepository.Delete(postId);
         }
 
-        public IEnumerable<Post> GetAllPaging(int? page, int? pageSize, out int totalRow)
+        public IEnumerable<Post> GetAllPaging(int? postCategoryId, int? page, int? pageSize, out int totalRow)
         {
-            return _postRepository.GetMultiPaging(x => x.Status, out totalRow,
-              page.GetValueOrDefault(), pageSize.GetValueOrDefault());
+            var query = _postRepository.GetMultiPaging(x => x.Status && x.PostCategoryId == postCategoryId.Value, out totalRow,
+              page.GetValueOrDefault(), pageSize.GetValueOrDefault(), new string[] { "PostCategory" });
+            return query;
         }
 
         public Post GetById(int? postId)
@@ -53,8 +54,8 @@ namespace OnlineShop.Service
 
         public IEnumerable<Post> GetAllByTagPaging(string tagId, int? page, int? pageSize, out int totalRow)
         {
-            return _postRepository.GetMultiPaging(x => x.Status, out totalRow,
-                page.GetValueOrDefault(), pageSize.GetValueOrDefault());
+            return _postRepository.GetAllByTagPaging(tagId,
+                page.GetValueOrDefault(), pageSize.GetValueOrDefault(), out totalRow);
         }
 
         public void SaveChanges()
