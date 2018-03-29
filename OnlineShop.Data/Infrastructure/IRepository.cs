@@ -12,10 +12,11 @@ namespace OnlineShop.Data.Infrastructure
         void Update(T entity);
 
         void Delete(T entity);
+        void Delete(object id);
 
         void DeleteMulti(Expression<Func<T, bool>> where = null);
 
-        T GetSingleById(int id);
+        T GetSingleById(int? id);
 
         T GetSingleByCondition(Expression<Func<T, bool>> expression = null, string[] includes = null);
 
