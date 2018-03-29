@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace OnlineShop.Data.Infrastructure
 {
-    public abstract class RepositoryBase<T> where T : class
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class
     {
         #region Properties
 
@@ -60,12 +60,12 @@ namespace OnlineShop.Data.Infrastructure
             return _dbSet.Find(id);
         }
 
-        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes)
+        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes=null)
         {
             return _dbSet.Where(where).ToList();
         }
 
-        public virtual int CountdownEvent(Expression<Func<T, bool>> where)
+        public virtual int Count(Expression<Func<T, bool>> where)
         {
             return _dbSet.Count(where);
         }
