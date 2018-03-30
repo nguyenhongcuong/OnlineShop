@@ -1,11 +1,13 @@
 ﻿using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using OnlineShop.Model.Models;
 using OnlineShop.Service;
 using OnlineShop.Web.Infrastructure.Core;
 
 namespace OnlineShop.Web.Api
 {
+    [RoutePrefix("api/postcategory")]
     public class PostCategoryController : BaseApiController
     {
         private IPostCategoryService _postCategoryService;
@@ -15,21 +17,26 @@ namespace OnlineShop.Web.Api
             _postCategoryService = postCategoryService;
         }
 
+        [Route("getall")]
         public HttpResponseMessage Get(HttpRequestMessage requestMessage)
         {
             return CreateHttpResponse(requestMessage, () =>
             {
-                HttpResponseMessage responseMessage = null;
-                if (ModelState.IsValid)
-                {
-                    var result = _postCategoryService.GetAll();
-                    _postCategoryService.Save();
-                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.Created, result);
-                }
-                else
-                {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
+                HttpResponseMessage responseMessage  = null;
+                //if (ModelState.IsValid)
+                //{
+                //    var result = _postCategoryService.GetAll();
+                //    _postCategoryService.Save();
+                //    responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK, result);
+                //}
+                //else
+                //{
+                //    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                //}
+                var result = _postCategoryService.GetAll();
+                //_postCategoryService.Save();
+                responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK, result);
+
                 return responseMessage;
             });
         }
