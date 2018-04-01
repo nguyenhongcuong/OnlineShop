@@ -49,7 +49,7 @@ namespace OnlineShop.Service
 
         public Post GetById(int? postId)
         {
-            return _postRepository.GetSingleById(postId);
+            return _postRepository.GetSingleById(postId.GetValueOrDefault());
         }
 
         public IEnumerable<Post> GetAllByTagPaging(string tagId, int? page, int? pageSize, out int totalRow)

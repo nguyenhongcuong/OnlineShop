@@ -40,13 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Class1.cs" />
-=======
     <Compile Include="ErrorService.cs" />
     <Compile Include="PostCategoryService.cs" />
     <Compile Include="PostService.cs" />
->>>>>>> bai_15
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

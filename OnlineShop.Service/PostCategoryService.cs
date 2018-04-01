@@ -52,7 +52,7 @@ namespace OnlineShop.Service
 
         public PostCategory GetById(object id)
         {
-            return _postCategoryRepository.GetSingleById((int?)id);
+            return _postCategoryRepository.GetSingleById((int) id);
         }
 
         public void Save()
