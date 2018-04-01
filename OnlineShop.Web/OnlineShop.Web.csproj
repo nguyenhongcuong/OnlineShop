@@ -259,6 +259,7 @@
     <Content Include="Scripts\Plugins\angular\angular.min.js" />
     <Content Include="Scripts\Plugins\angular\index.js" />
     <Content Include="Scripts\Spa\app.js" />
+    <Content Include="Scripts\Spa\demoDirective.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -14,10 +14,11 @@
     <script src="~/Scripts/Spa/app.js"></script>
 </head>
 <body>
-    <div ng-controller="schoolController">
-        {{message}}
-        <input type="number" ng-model="numb"/> Value of textbox" {{numb}}"
-        <button ng-click="checkNumber()">Check number</button>
-    </div>
+<div ng-controller="schoolController">
+    <demo-directive></demo-directive>
+    {{message}}
+    <input type="number" ng-model="numb"/> Value of textbox" {{numb}}"
+    <button ng-click="checkNumber()">Check number</button>
+</div>
 </body>
 </html>
