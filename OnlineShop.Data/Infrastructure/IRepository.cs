@@ -7,11 +7,16 @@ namespace OnlineShop.Data.Infrastructure
 {
     public interface IRepository<T> where T : class
     {
-        void Add(T entity);
+        T Add(T entity);
 
         void Update(T entity);
 
+<<<<<<< HEAD
         void Delete(T entity);
+=======
+        T Delete(T entity);
+        T Delete(object id);
+>>>>>>> bai_15
 
         void DeleteMulti(Expression<Func<T, bool>> where = null);
 
@@ -19,11 +24,11 @@ namespace OnlineShop.Data.Infrastructure
 
         T GetSingleByCondition(Expression<Func<T, bool>> expression = null, string[] includes = null);
 
-        IQueryable<T> GetAll(string[] includes = null);
+        IEnumerable<T> GetAll(string[] includes = null);
 
-        IQueryable<T> GetMulti(Expression<Func<T, bool>> predicate = null, string[] includes = null);
+        IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate = null, string[] includes = null);
 
-        IQueryable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int pageSize = 50,
+        IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index = 0, int pageSize = 50,
             string[] includes = null);
 
         int Count(Expression<Func<T, bool>> where);

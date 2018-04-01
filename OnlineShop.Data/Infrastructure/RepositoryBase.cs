@@ -30,9 +30,9 @@ namespace OnlineShop.Data.Infrastructure
 
         #region Implementation
 
-        public virtual void Add(T entity)
+        public virtual T Add(T entity)
         {
-            _dbSet.Add(entity);
+            return _dbSet.Add(entity);
         }
 
         public virtual void Update(T entity)
@@ -41,9 +41,9 @@ namespace OnlineShop.Data.Infrastructure
             _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Delete(T entity)
+        public virtual T Delete(T entity)
         {
-            _dbSet.Remove(entity);
+            return _dbSet.Remove(entity);
         }
 
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
@@ -60,7 +60,7 @@ namespace OnlineShop.Data.Infrastructure
             return _dbSet.Find(id);
         }
 
-        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes=null)
+        public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes = null)
         {
             return _dbSet.Where(where).ToList();
         }
@@ -70,7 +70,7 @@ namespace OnlineShop.Data.Infrastructure
             return _dbSet.Count(where);
         }
 
-        public IQueryable<T> GetAll(string[] includes = null)
+        public IEnumerable<T> GetAll(string[] includes = null)
         {
             //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
             if (includes != null && includes.Any())
@@ -86,10 +86,18 @@ namespace OnlineShop.Data.Infrastructure
 
         public T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
         {
-            return GetAll(includes).FirstOrDefault(expression);
+            if (includes != null && includes.Any())
+            {
+                var query = _dbContext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return query.FirstOrDefault(expression);
+            }
+
+            return _dbContext.Set<T>().FirstOrDefault(expression);
         }
 
-        public virtual IQueryable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
+        public virtual IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
         {
             //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
             if (includes != null && includes.Count() > 0)
@@ -103,7 +111,7 @@ namespace OnlineShop.Data.Infrastructure
             return _dbContext.Set<T>().Where<T>(predicate).AsQueryable<T>();
         }
 
-        public virtual IQueryable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
+        public virtual IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
         {
             int skipCount = index * size;
             IQueryable<T> _resetSet;
@@ -130,6 +138,17 @@ namespace OnlineShop.Data.Infrastructure
         {
             return _dbContext.Set<T>().Count<T>(predicate) > 0;
         }
+<<<<<<< HEAD
+=======
+
+        public T Delete(object id)
+        {
+            var entity = _dbSet.Find(id);
+            return _dbSet.Remove(entity);
+
+        }
+
+>>>>>>> bai_15
         #endregion
     }
 }

@@ -1,0 +1,5 @@
+Tích hợp Identity cho website
+Bước 1:  Cài 3 thư viện
+Microsoft.AspNet.Identity.EntityFramework
+Microsoft.AspNet.Identity.Core
+Microsoft.AspNet.Identity.OWIN
