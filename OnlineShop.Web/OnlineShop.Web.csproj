@@ -226,6 +226,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -239,14 +240,20 @@
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\TagViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Scripts\Plugins\angular\angular-csp.css" />
+    <Content Include="Scripts\Plugins\angular\angular.js" />
+    <Content Include="Scripts\Plugins\angular\angular.min.js" />
+    <Content Include="Scripts\Plugins\angular\index.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -260,7 +267,6 @@
   <ItemGroup>
     <Folder Include="Assets\Admin\" />
     <Folder Include="Assets\Client\" />
-    <Folder Include="Scripts\Plugins\" />
     <Folder Include="Scripts\Spa\" />
   </ItemGroup>
   <ItemGroup>
@@ -268,7 +274,22 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
+    <Content Include="bower.json" />
+    <Content Include=".bowerrc" />
+    <Content Include="package.json" />
+    <Content Include="ApplicationInsights.config" />
     <None Include="Project_Readme.html" />
+    <Content Include="Scripts\Plugins\angular\.bower.json" />
+    <Content Include="Scripts\Plugins\angular\angular.min.js.gzip" />
+    <Content Include="Scripts\Plugins\angular\angular.min.js.map" />
+    <Content Include="Scripts\Plugins\angular\bower.json" />
+    <Content Include="Scripts\Plugins\angular\LICENSE.md" />
+    <Content Include="Scripts\Plugins\angular\package.json" />
+    <Content Include="Scripts\Plugins\angular\README.md" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OnlineShop.Common\OnlineShop.Common.csproj">
@@ -287,6 +308,15 @@
       <Project>{e597927d-0590-40e6-a848-f3cad6aee18c}</Project>
       <Name>OnlineShop.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
