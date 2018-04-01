@@ -1,16 +1,17 @@
 ﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using OnlineShop.Model.Models;
 
 namespace OnlineShop.Data
 {
-    public class OnlineShopDbContext : DbContext
+    public class OnlineShopDbContext : IdentityDbContext<ApplicationUser>
     {
         public OnlineShopDbContext() : base("OnlineShopConnectionString")
         {
             Configuration.LazyLoadingEnabled = false;
         }
 
-        public  DbSet<Footer> Footers { get; set; }
+        public DbSet<Footer> Footers { get; set; }
         public DbSet<Menu> Menus { get; set; }
         public DbSet<MenuGroup> MenuGroups { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -30,9 +31,18 @@ namespace OnlineShop.Data
 
         public DbSet<ErrorLog> ErrorLogs { get; set; }
 
+        public static OnlineShopDbContext Create()
+        {
+            return new OnlineShopDbContext();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            modelBuilder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
             base.OnModelCreating(modelBuilder);
         }
+
+
     }
 }
