@@ -51,6 +51,10 @@
       <HintPath>..\packages\Moq.4.8.2\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OnlineShop.Service, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\OnlineShop.Web\Bin\OnlineShop.Service.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -93,10 +97,6 @@
     <ProjectReference Include="..\OnlineShop.Model\OnlineShop.Model.csproj">
       <Project>{ea65cde5-d125-485c-8760-1fb1749ea757}</Project>
       <Name>OnlineShop.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OnlineShop.Service\OnlineShop.Service.csproj">
-      <Project>{e597927d-0590-40e6-a848-f3cad6aee18c}</Project>
-      <Name>OnlineShop.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\OnlineShop.Web\OnlineShop.Web.csproj">
       <Project>{61080f9a-09ed-403e-97ec-bf644d4d50e1}</Project>
