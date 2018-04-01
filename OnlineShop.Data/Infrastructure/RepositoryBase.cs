@@ -138,8 +138,7 @@ namespace OnlineShop.Data.Infrastructure
         {
             return _dbContext.Set<T>().Count<T>(predicate) > 0;
         }
-<<<<<<< HEAD
-=======
+
 
         public T Delete(object id)
         {
@@ -148,7 +147,6 @@ namespace OnlineShop.Data.Infrastructure
 
         }
 
->>>>>>> bai_15
         #endregion
     }
 }

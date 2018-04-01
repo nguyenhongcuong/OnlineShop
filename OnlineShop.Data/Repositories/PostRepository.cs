@@ -5,11 +5,8 @@ using OnlineShop.Model.Models;
 
 namespace OnlineShop.Data.Repositories
 {
-<<<<<<< HEAD
-    public interface IPostRepository
-=======
+
     public interface IPostRepository : IRepository<Post>
->>>>>>> bai_15
     {
         IEnumerable<Post> GetAllByTagPaging(string tagId, int? page, int? pageSize, out int totalRow);
     }

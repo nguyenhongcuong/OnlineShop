@@ -11,12 +11,8 @@ namespace OnlineShop.Data.Infrastructure
 
         void Update(T entity);
 
-<<<<<<< HEAD
-        void Delete(T entity);
-=======
         T Delete(T entity);
         T Delete(object id);
->>>>>>> bai_15
 
         void DeleteMulti(Expression<Func<T, bool>> where = null);
 
