@@ -289,6 +289,7 @@
     <Content Include="app\components\users\userEditView.html" />
     <Content Include="app\components\users\userListController.js" />
     <Content Include="app\components\users\userListView.html" />
+    <Content Include="app\shared\filters\statusFilter.js" />
     <Content Include="app\shared\modules\onlineShop.common.js" />
     <Content Include="app\shared\services\apiServices.js" />
     <Content Include="Assets\Admin\css\AdminLTE.css" />
