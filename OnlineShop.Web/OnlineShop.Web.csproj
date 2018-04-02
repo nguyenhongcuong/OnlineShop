@@ -295,6 +295,7 @@
     <Content Include="app\shared\filters\statusFilter.js" />
     <Content Include="app\shared\modules\onlineShop.common.js" />
     <Content Include="app\shared\services\apiServices.js" />
+    <Content Include="app\shared\services\notificationService.js" />
     <Content Include="Assets\Admin\css\AdminLTE.css" />
     <Content Include="Assets\Admin\css\AdminLTE.min.css" />
     <Content Include="Assets\Admin\css\skins\skin-black-light.css" />
@@ -1875,6 +1876,10 @@
     <Content Include="Assets\Admin\libs\slimScroll\examples\style.css" />
     <Content Include="Assets\Admin\libs\slimScroll\jquery.slimscroll.js" />
     <Content Include="Assets\Admin\libs\slimScroll\jquery.slimscroll.min.js" />
+    <Content Include="Assets\Admin\libs\toastr\toastr.css" />
+    <Content Include="Assets\Admin\libs\toastr\toastr.js" />
+    <Content Include="Assets\Admin\libs\toastr\toastr.min.css" />
+    <Content Include="Assets\Admin\libs\toastr\toastr.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2102,6 +2107,12 @@
     <Content Include="Assets\Admin\libs\Ionicons\scss\_ionicons-font.scss" />
     <Content Include="Assets\Admin\libs\Ionicons\scss\_ionicons-icons.scss" />
     <Content Include="Assets\Admin\libs\Ionicons\scss\_ionicons-variables.scss" />
+    <Content Include="Assets\Admin\libs\toastr\.bower.json" />
+    <Content Include="Assets\Admin\libs\toastr\bower.json" />
+    <Content Include="Assets\Admin\libs\toastr\README.md" />
+    <Content Include="Assets\Admin\libs\toastr\toastr.js.map" />
+    <Content Include="Assets\Admin\libs\toastr\toastr.less" />
+    <Content Include="Assets\Admin\libs\toastr\toastr.scss" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
