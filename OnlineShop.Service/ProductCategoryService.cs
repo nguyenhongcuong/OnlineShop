@@ -12,6 +12,7 @@ namespace OnlineShop.Service
         ProductCategory Delete(ProductCategory productCategory);
         IEnumerable<ProductCategory> GetAll();
         IEnumerable<ProductCategory> GetAllByParentId(int? parentId);
+        IEnumerable<ProductCategory> GetAll(string keywork);
         ProductCategory GetById(int? id);
         void Save();
     }
@@ -57,6 +58,13 @@ namespace OnlineShop.Service
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<ProductCategory> GetAll(string keyword)
+        {
+            return string.IsNullOrEmpty(keyword) ?
+                _productCategoryRepository.GetAll() :
+                _productCategoryRepository.GetMulti(x => x.Name.Contains(keyword) || x.Description.Contains(keyword));
         }
     }
 }
