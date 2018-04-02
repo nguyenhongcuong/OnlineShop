@@ -61,9 +61,10 @@
                                     <!--<span class="badge bg-red">{{item.Status | statusFilter}}</span>-->
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary">
+                                    <button class="btn btn-primary"
+                                       ui-sref="edit_product_category({id:item.Id})">
                                         <i class="fa fa-pencil"></i>
-                                    </a>
+                                    </button>
 
                                     <a class="btn btn-danger">
                                         <i class="fa fa-trash-o"></i>

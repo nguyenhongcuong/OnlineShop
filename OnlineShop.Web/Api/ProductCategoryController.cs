@@ -65,6 +65,24 @@ namespace OnlineShop.Web.Api
             });
         }
 
+        [Route("getbyid/{id:int}")]
+        [HttpGet]
+        public HttpResponseMessage GetById(HttpRequestMessage requestMessage,
+            int? id)
+        {
+            return CreateHttpResponse(requestMessage, () =>
+            {
+                var productCategory = _productCategoryService.GetById(id);
+                var productCategoryViewModel = Mapper.Map<ProductCategory, ProductCategoryViewModel>(productCategory);
+                var responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK, productCategoryViewModel);
+                return responseMessage;
+            });
+        }
+
+
+        [Route("create")]
+        [HttpPost]
+        [AllowAnonymous]
         public HttpResponseMessage Create(HttpRequestMessage requestMessage,
             ProductCategoryViewModel productCategoryViewModel)
         {
@@ -91,8 +109,38 @@ namespace OnlineShop.Web.Api
             });
         }
 
+        [Route("update")]
+        [HttpPut]
+        [AllowAnonymous]
+        public HttpResponseMessage Update(HttpRequestMessage requestMessage,
+            ProductCategoryViewModel productCategoryViewModel)
+        {
+            return CreateHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (ModelState.IsValid)
+                {
+                    var productCategory = _productCategoryService.GetById(productCategoryViewModel.Id);
+                    productCategory.UpdateProductCategory(productCategoryViewModel);
+                    productCategory.UpdatedDate = DateTime.Now;
 
 
+                    _productCategoryService.Update(productCategory);
+                    _productCategoryService.Save();
+
+                    var productCategoryViewModelResult =
+                        Mapper.Map<ProductCategory, ProductCategoryViewModel>(productCategory);
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.Created,
+                        productCategoryViewModelResult);
+
+                }
+                else
+                {
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+                return responseMessage;
+            });
+        }
 
 
 

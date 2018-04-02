@@ -22,19 +22,24 @@
                 <div class="form-group">
                     <label for="name" class="col-sm-2 control-label">Tên danh mục</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="name" name="name" ng-model="productCategory.Name" />
+                        <input type="text" ng-maxlength="256" required class="form-control" id="name" name="name" ng-model="productCategory.Name" ng-keyup="getSeoTitle()" />
+                        <span ng-show="frmAddProductCategory.name.$invalid" class="has-error">Phải nhập tên danh mục</span>
+                        <span ng-show="frmAddProductCategoryname.$error.maxlength" class="has-error">Tên danh mục chỉ được 256 ký tự</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="alias" class="col-sm-2 control-label">Tiêu đề SEO</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="alias" name="alias" ng-model="productCategory.Alias" />
+                        <input type="text" class="form-control" ng-maxlength="256" required id="alias" name="alias" ng-model="productCategory.Alias" />
+                        <span ng-show="frmAddProductCategory.alias.$invalid" class="has-error">Phải nhập tiêu đề SEO</span>
+                        <span ng-show="frmAddProductCategory.alias.$error.maxlength" class="has-error">Tiêu đề SEO chỉ được 256 ký tự</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="description" class="col-sm-2 control-label">Mô tả ngắn</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="description" name="description" ng-model="productCategory.Description" />
+                        <input type="text" class="form-control" ng-maxlength="500" id="description" name="description" ng-model="productCategory.Description" />
+                        <span ng-show="frmAddProductCategory.description.$error.maxlength" class="has-error">Mô tả chỉ được 500 ký tự</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,14 +56,16 @@
                 <div class="form-group">
                     <label for="display" class="col-sm-2 control-label">Thứ tự</label>
                     <div class="col-md-10">
-                        <input type="number" class="form-control" id="display" name="display" ng-model="productCategory.DisplayOrder" />
-                    </div>
+                        <input type="number" class="form-control" required id="display" name="display" ng-model="productCategory.DisplayOrder" />
+                        <span ng-show="frmAddProductCategory.display.$invalid" class="has-error">Phải nhập thứ tự</span>
+                     </div>
                 </div>
                 <div class="form-group">
                     <label for="image" class="col-sm-2 control-label">Hình ảnh</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="image" name="image" ng-model="productCategory.Image" />
-                    </div>
+                        <input type="text" class="form-control" ng-maxlength="256" id="image" name="image" ng-model="productCategory.Image" />
+                        <span ng-show="frmAddProductCategory.image.$error.maxlength" class="has-error">Đường dẫn hình ảnh chỉ được 256 ký tự</span>
+                     </div>
                 </div>
                 <div class="form-group">
                     <label for="metaKeyword" class="col-sm-2 control-label">Meta Keyword</label>
@@ -69,7 +76,7 @@
                 <div class="form-group">
                     <label for="metaDescription" class="col-sm-2 control-label">Meta Description</label>
                     <div class="col-md-10">
-                        <input type="text" class="form-control" id="metaDescription" name="metaDescription" ng-model="productCategory.MetaDescription" />
+                        <textarea class="form-control" name="metaKeyword" ng-model="productCategory.MetaDescription"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -92,7 +99,7 @@
 
             <div class="box-footer">
                 <a class="btn btn-default" ui-sref="product_categories">Hủy</a>
-                <button type="submit" class="btn btn-success pull-right">Lưu</button>
+                <button type="submit" ng-disabled="frmAddProductCategory.$invalid" class="btn btn-success pull-right">Lưu</button>
             </div>
             <!-- /.box-footer-->
         </form>
