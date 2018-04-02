@@ -47,5 +47,28 @@ namespace OnlineShop.Web.Infrastructure.Extensions
             post.MetaDescription = postViewModel.MetaDescription;
             post.Status = postViewModel.Status;
         }
+
+        public static void UpdateProductCategory(this ProductCategory productCategory,
+            ProductCategoryViewModel productCategoryViewModel)
+        {
+            productCategory.Id = productCategoryViewModel.Id;
+            productCategory.Name = productCategoryViewModel.Name;
+            productCategory.Description = productCategoryViewModel.Description;
+            productCategory.Alias = productCategoryViewModel.Alias;
+            productCategory.ParentId = productCategoryViewModel.ParentId;
+            productCategory.DisplayOrder = productCategoryViewModel.DisplayOrder;
+            productCategory.Image = productCategoryViewModel.Image;
+            productCategory.HomeFlag = productCategoryViewModel.HomeFlag;
+
+            productCategory.CreatedDate = productCategoryViewModel.CreatedDate;
+            productCategory.CreatedBy = productCategoryViewModel.CreatedBy;
+            productCategory.UpdatedDate = productCategoryViewModel.UpdatedDate;
+            productCategory.UpdatedBy = productCategoryViewModel.UpdatedBy;
+            productCategory.MetaKeyword = productCategoryViewModel.MetaKeyword;
+            productCategory.MetaDescription = productCategoryViewModel.MetaDescripton;
+            productCategory.Status = productCategoryViewModel.Status;
+        }
+
+
     }
 }

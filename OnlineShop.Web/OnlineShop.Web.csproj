@@ -1907,7 +1907,6 @@
     <Content Include=".bowerrc" />
     <Content Include="package.json" />
     <Content Include="ApplicationInsights.config" />
-    <Content Include="app\app.routes.js" />
     <Content Include="Assets\Admin\libs\angular-ui-router\.bower.json" />
     <Content Include="Assets\Admin\libs\angular-ui-router\artifacts.json" />
     <Content Include="Assets\Admin\libs\angular-ui-router\bower.json" />
