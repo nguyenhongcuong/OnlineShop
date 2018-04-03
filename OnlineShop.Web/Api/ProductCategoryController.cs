@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 using AutoMapper;
 using OnlineShop.Model.Models;
 using OnlineShop.Service;
@@ -159,6 +161,36 @@ namespace OnlineShop.Web.Api
                     var productCategoryViewModel =
                         Mapper.Map<ProductCategory, ProductCategoryViewModel>(productCategoryDelete);
                     responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK, productCategoryViewModel);
+                }
+                else
+                {
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+
+                return responseMessage;
+            });
+        }
+
+
+        [Route("deletemulti")]
+        [HttpDelete]
+        [AllowAnonymous]
+        public HttpResponseMessage DeleteMulti(HttpRequestMessage requestMessage, string data)
+        {
+            return CreateHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+
+                if (ModelState.IsValid)
+                {
+                    var productCategoryIdDeletes = new JavaScriptSerializer().Deserialize<List<int>>(data);
+                    foreach (var item in productCategoryIdDeletes)
+                    {
+                        _productCategoryService.Delete(item);
+                    }
+
+                    _productCategoryService.Save();
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK, true);
                 }
                 else
                 {

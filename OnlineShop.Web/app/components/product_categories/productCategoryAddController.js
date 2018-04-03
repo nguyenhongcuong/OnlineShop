@@ -2,9 +2,10 @@
     app.controller('productCategoryAddController', productCategoryAddController);
 
     productCategoryAddController.$inject =
-        ['apiService', '$scope', 'notificationService', '$state','commonService'];
+        ['apiService', '$scope', 'notificationService', '$state', 'commonService'];
 
-    function productCategoryAddController(apiService, $scope, notificationService, $state,commonService) {
+    function productCategoryAddController(apiService, $scope, notificationService, $state, commonService) {
+        debugger;
         $scope.productCategory = {
             CreatedDate: new Date(),
             Status: true,
@@ -42,6 +43,7 @@
                 });
         }
 
+        getSeoTitle();
         loadParentCategory();
     }
 })(angular.module('onlineShop.product_categories'));
