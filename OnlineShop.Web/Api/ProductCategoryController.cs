@@ -143,6 +143,32 @@ namespace OnlineShop.Web.Api
         }
 
 
+        [Route("delete")]
+        [HttpDelete]
+        [AllowAnonymous]
+        public HttpResponseMessage Delete(HttpRequestMessage requestMessage, int? id)
+        {
+            return CreateHttpResponse(requestMessage, () =>
+            {
+                HttpResponseMessage responseMessage = null;
+                if (ModelState.IsValid)
+                {
+                    var productCategoryDelete = _productCategoryService.Delete(id.GetValueOrDefault());
+                    _productCategoryService.Save();
+
+                    var productCategoryViewModel =
+                        Mapper.Map<ProductCategory, ProductCategoryViewModel>(productCategoryDelete);
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK, productCategoryViewModel);
+                }
+                else
+                {
+                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ModelState);
+                }
+
+                return responseMessage;
+            });
+        }
+
 
 
 

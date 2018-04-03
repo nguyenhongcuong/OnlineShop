@@ -62,13 +62,13 @@
                                 </td>
                                 <td>
                                     <button class="btn btn-primary"
-                                       ui-sref="edit_product_category({id:item.Id})">
+                                            ui-sref="edit_product_category({id:item.Id})">
                                         <i class="fa fa-pencil"></i>
                                     </button>
 
-                                    <a class="btn btn-danger">
+                                    <button class="btn btn-danger" ng-click="deleteObject(item.Id)">
                                         <i class="fa fa-trash-o"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
 

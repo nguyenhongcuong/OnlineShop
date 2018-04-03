@@ -7,7 +7,9 @@
     function apiService($http, notificationService) {
         return {
             get: get,
-            post: post, put: put
+            post: post,
+            put: put,
+            del: del
         }
 
         function get(url, params, success, failed) {
@@ -45,6 +47,19 @@
                 }
 
             });
+        }
+
+        function del(url, data, success, failed) {
+            $http.delete(url, data).then(function (rs) {
+                success(rs);
+            }), function (error) {
+                console.log(error);
+                if (error.status === 401) {
+                    notificationService.displayError('Authenticate is required');
+                } else if (failed != null) {
+                    failed(error);
+                }
+            };
         }
 
     }
