@@ -2,6 +2,7 @@
   "name": "myproject",
   "version": "1.0.0",
   "devDependencies": {
-    "angular": "1.6.9"
+    "angular": "1.6.9",
+    "ng-ckeditor": "2.0.5"
   }
 }

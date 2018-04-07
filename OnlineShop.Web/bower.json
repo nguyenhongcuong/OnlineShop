@@ -2,7 +2,6 @@
   "name": "asp.net",
   "private": true,
   "dependencies": {
-    "angular": "1.6.9",
     "angular-ui-router": "1.0.15",
     "jquery": "3.3.1",
     "bootstrap": "3.3.7",
@@ -12,6 +11,8 @@
     "Ionicons": "ionicons#2.0.1",
     "toastr": "2.1.2",
     "bootbox.js": "bootbox#4.4.0",
-    "ngBootbox": "0.2.0"
+    "ngBootbox": "0.2.0",
+    "angular": "1.6.9",
+    "ckeditor": "4.9.1"
   }
 }
