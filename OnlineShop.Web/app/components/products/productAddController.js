@@ -19,6 +19,17 @@
         $scope.getProductCategories = getProductCategories;
         $scope.addProduct = addProduct;
 
+        $scope.chooseImage = chooseImage;
+
+        function chooseImage() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.product.Image = fileUrl;
+            }
+
+            finder.popup();
+        }
+
         function addProduct() {
             apiService.post('/api/product/create',
                 $scope.product,
