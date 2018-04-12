@@ -10,6 +10,8 @@
             Name: 'Sản phẩm 1'
         }
 
+        $scope.moreImages = [];
+
         $scope.ckeditorOptions = {
             languague: 'vi',
             height: '200px'
@@ -21,16 +23,34 @@
 
         $scope.chooseImage = chooseImage;
 
+        $scope.chooseMoreImages = chooseMoreImages;
+
         function chooseImage() {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
-                $scope.product.Image = fileUrl;
+                $scope.$apply(function () {
+                    $scope.product.Image = fileUrl;
+                });
+
+            }
+
+            finder.popup();
+        }
+
+        function chooseMoreImages() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.moreImages.push(fileUrl);
+                });
+
             }
 
             finder.popup();
         }
 
         function addProduct() {
+            $scope.product.MoreImages = JSON.stringify($scope.moreImages);
             apiService.post('/api/product/create',
                 $scope.product,
                 function (result) {
@@ -41,7 +61,6 @@
                     notificationService.displayError('Thêm mới không thành công !');
                 });
         }
-
 
         function getSeoTitle() {
             $scope.product.Alias = commonService.getSeoTitle($scope.product.Name);

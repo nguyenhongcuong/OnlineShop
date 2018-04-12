@@ -9,6 +9,8 @@
             UpdatedDate: new Date()
         }
 
+        $scope.moreImages = [];
+
         $scope.ckeditorOptions = {
             language: 'vi',
             height: '300px'
@@ -20,14 +22,28 @@
 
         $scope.chooseImage = chooseImage;
 
+        $scope.chooseMoreImages = chooseMoreImages;
+
+        function chooseMoreImages() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                $scope.$apply(function () {
+                    $scope.moreImages.push(fileUrl);
+                });
+            }
+
+            finder.popup();
+        }
+
         function loadProductDetail() {
             debugger;
             apiService.get('/api/product/getbyid/' + $stateParams.id,
                 null,
-                function(rs) {
+                function (rs) {
                     $scope.product = rs.data;
+                    $scope.moreImages = JSON.parse(rs.data.MoreImages);
                 },
-                function(error) {
+                function (error) {
                     notificationService.displayError(error);
                 });
         }
@@ -35,13 +51,18 @@
         function chooseImage() {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {
-                $scope.product.Image = fileUrl;
+                $scope.$apply(function () {
+                    $scope.product.Image = fileUrl;
+                });
+
             }
             finder.popup();
         }
 
+
+
         function updateProduct() {
-            debugger;
+            $scope.product.MoreImages = JSON.stringify($scope.moreImages);
             apiService.put('/api/product/update', $scope.product,
                 function (rs) {
                     notificationService.displaySuccess(rs.data.Name + ' đã được cập nhật !');
@@ -57,10 +78,10 @@
         }
 
         function getProductCategories() {
-            apiService.get('/api/product/getallparents',
+            apiService.get('/api/productcategory/getallparents',
                 null,
                 function (rs) {
-                    $scope.product = rs.data;
+                    $scope.productCategories = rs.data;
                 },
                 function () {
                     console.log('Cannot get list product catgory !');
