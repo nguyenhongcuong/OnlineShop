@@ -20,9 +20,9 @@
             }
         ).state('product_edit',
             {
-                url: '/product_edit',
-                templateUrl: '/app/components/products/productEditView.html',
-                controller: 'productEditController'
+                url: "/product_edit/:id",
+                templateUrl: "/app/components/products/productEditView.html",
+                controller: "productEditController"
             }
         );
     }
