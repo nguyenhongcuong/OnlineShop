@@ -93,6 +93,13 @@
                         <textarea class="form-control" id="content" name="content" ckeditor="ckeditorOptions" ng-model="product.Content"></textarea>
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label for="tags" class="col-sm-2 control-label">Tags</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="tags" name="tags" ng-model="product.Tags" />
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label for="metaKeyword" class="col-sm-2 control-label">Meta Keyword</label>
@@ -103,7 +110,7 @@
                 <div class="form-group">
                     <label for="metaDescription" class="col-sm-2 control-label">Meta Description</label>
                     <div class="col-md-10">
-                        <textarea class="form-control" name="metaKeyword" ng-model="product.MetaDescription"></textarea>
+                        <textarea class="form-control" name="metaKeyword" id="metaDescription" ng-model="product.MetaDescription"></textarea>
                     </div>
                 </div>
                 <div class="form-group">

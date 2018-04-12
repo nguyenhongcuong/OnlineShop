@@ -41,6 +41,7 @@
         }
 
         function updateProduct() {
+            debugger;
             apiService.put('/api/product/update', $scope.product,
                 function (rs) {
                     notificationService.displaySuccess(rs.data.Name + ' đã được cập nhật !');

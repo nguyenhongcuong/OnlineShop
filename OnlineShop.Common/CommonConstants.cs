@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace OnlineShop.Common
 {
-    public class Class1
+    public class CommonConstants
     {
+        public const string ProductTag = "ProductTag";
+        public const string PostTag = "PostTag";
     }
 }

@@ -84,6 +84,8 @@ namespace OnlineShop.Web.Infrastructure.Extensions
             product.Content = productViewModel.Content;
             product.HomeFlag = productViewModel.HomeFlag;
             product.HotFlag = productViewModel.HotFlag;
+            product.Tags = productViewModel.Tags;
+            
 
             product.CreatedDate = productViewModel.CreatedDate;
             product.CreatedBy = productViewModel.CreatedBy;
