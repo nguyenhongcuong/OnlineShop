@@ -28,5 +28,24 @@ namespace OnlineShop.Web.Controllers
 
             return View();
         }
+
+        [ChildActionOnly]
+        public ActionResult _FooterPartial()
+        {
+            return PartialView();
+        }
+
+
+        [ChildActionOnly]
+        public ActionResult _HeaderPartial()
+        {
+            return PartialView();
+        }
+
+        [ChildActionOnly]
+        public ActionResult _CategoriesPartial()
+        {
+            return PartialView();
+        }
     }
 }
