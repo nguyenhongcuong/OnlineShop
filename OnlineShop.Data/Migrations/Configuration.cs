@@ -94,5 +94,7 @@ namespace OnlineShop.Data.Migrations
 
             }
         }
+
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using OnlineShop.Common;
 using OnlineShop.Data.Infrastructure;
 using OnlineShop.Data.Repositories;
@@ -10,6 +11,8 @@ namespace OnlineShop.Service
     {
         IEnumerable<Product> GetAll();
         IEnumerable<Product> GetAll(string keyword);
+        IEnumerable<Product> GetLastest(int top=3);
+        IEnumerable<Product> GetHotProduct(int top=3);
         Product GetById(int? id);
         Product Add(Product product);
         void Update(Product product);
@@ -125,6 +128,17 @@ namespace OnlineShop.Service
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<Product> GetLastest(int top = 3)
+        {
+            return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
+        }
+
+        public IEnumerable<Product> GetHotProduct(int top = 3)
+        {
+            return _productRepository.GetMulti(x => x.Status&&x.HotFlag==true).OrderByDescending(x => x.CreatedDate).Take(top);
+
         }
     }
 }

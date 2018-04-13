@@ -17,6 +17,8 @@ namespace OnlineShop.Model.Models
         [MaxLength(500)]
         public string Description { get; set; }
 
+        public string Content { get; set; }
+
         [MaxLength(256)]
         public string Image { get; set; }
 

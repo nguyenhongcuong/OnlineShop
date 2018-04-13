@@ -13,17 +13,35 @@ namespace OnlineShop.Web.Controllers
     public class HomeController : Controller
     {
         private IProductCategoryService _productCategoryService;
+        private ICommonService _commonService;
+        private IProductService _productService;
 
-        public HomeController(IProductCategoryService productCategoryService)
+        public HomeController(IProductCategoryService productCategoryService, ICommonService commonService, IProductService productService)
         {
             _productCategoryService = productCategoryService;
+            _commonService = commonService;
+            _productService = productService;
 
         }
         public ActionResult Index()
         {
-            ViewBag.Message = "Edit index";
+            var slides = _commonService.GetSlides();
+            var lastProducts = _productService.GetLastest();
+            var topSaleProducts = _productService.GetHotProduct();
 
-            return View();
+
+
+            var slideViewModels = Mapper.Map<IEnumerable<Slide>, IEnumerable<SlideViewModel>>(slides);
+            var lastProductViewModels = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(lastProducts);
+            var topSaleProductViewModels = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(topSaleProducts);
+
+            var homeViewModel = new HomeViewModel
+            {
+                SlideViewModels = slideViewModels,
+                LastProductViewModels = lastProductViewModels,
+                TopSaleProductViewModels = topSaleProductViewModels
+            };
+            return View(homeViewModel);
         }
 
         public ActionResult About()
