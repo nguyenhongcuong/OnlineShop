@@ -92,7 +92,7 @@
                 {
                     stt++;
                     var hasClassGridTopChain = stt == 3 ? "grid-top-chain" : "";
-                    var url = $"/{lastProduct.Alias}.p-{lastProduct.Id}.html";
+                    var url = $"/{lastProduct.Alias}/p-{lastProduct.Id}";
                     <div class="col-md-4 chain-grid @hasClassGridTopChain">
                         <a href="@url"><img class="img-responsive chain" src="@lastProduct.Image" alt="@lastProduct.Name" /></a>
                         <span class="star"> </span>
@@ -137,7 +137,7 @@
                 {
                     stt2++;
                     var hasClassGridTopChain = stt2 == 3 ? "grid-top-chain" : "";
-                    var url2 = $"/{topSaleProduct.Alias}.p-{topSaleProduct.Id}.html";
+                    var url2 = $"/{topSaleProduct.Alias}/p-{topSaleProduct.Id}";
                     <div class="col-md-4 chain-grid @hasClassGridTopChain">
                         <a href="@url2"><img class="img-responsive chain" src="@topSaleProduct.Image" alt="@topSaleProduct.Name" /></a>
                         <span class="star"> </span>

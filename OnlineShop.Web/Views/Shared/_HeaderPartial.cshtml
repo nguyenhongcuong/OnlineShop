@@ -1,4 +1,9 @@
-﻿<div class="top-header">
+﻿@{
+    const string urlLogin = "/dang-nhap";
+    const string urlRegister = "/dang-ky";
+}
+
+<div class="top-header">
     <div class="container">
         <div class="top-header-left">
             <ul class="support">
@@ -48,12 +53,12 @@
             <div class="clearfix"> </div>
         </div>
         <div class="header-bottom-right">
-            <div class="account"><a href="login.html"><span> </span>YOUR ACCOUNT</a></div>
+            <div class="account"><a href="@urlLogin"><span> </span>TÀI KHOẢN CỦA BẠN</a></div>
             <ul class="login">
-                <li><a href="login.html"><span> </span>LOGIN</a></li> |
-                <li><a href="register.html">SIGNUP</a></li>
+                <li><a href="@urlLogin"><span> </span>ĐĂNG NHẬP</a></li> |
+                <li><a href="@urlRegister">ĐĂNG KÝ</a></li>
             </ul>
-            <div class="cart"><a href="#"><span> </span>CART</a></div>
+            <div class="cart"><a href="#"><span> </span>GIỎ HÀNG</a></div>
             <div class="clearfix"> </div>
         </div>
         <div class="clearfix"> </div>
