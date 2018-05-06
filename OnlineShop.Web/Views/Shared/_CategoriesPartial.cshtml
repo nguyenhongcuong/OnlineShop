@@ -1,17 +1,22 @@
 ﻿@model IEnumerable<OnlineShop.Web.Models.ProductCategoryViewModel>
 <div class="sub-cate">
-    <div class=" top-nav rsidebar span_1_of_left">
+    <div class="top-nav rsidebar span_1_of_left">
         <h3 class="cate">Danh mục sản phẩm</h3>
         <ul class="menu">
             @foreach (var productCategory in Model.Where(x => x.ParentId == null))
             {
-                var url = $"/{productCategory.Alias}/pc-{productCategory.Id}";     
+                var url = $"/{productCategory.Alias}/pc-{productCategory.Id}";
                 var childProductCategoris = Model.Where(x => x.ParentId == productCategory.Id).ToList();
+                var href = "";
+                if (!childProductCategoris.Any())
+                {
+                    href = $"href={url}";
+                }
                 var hasImgIcon = childProductCategoris.Any() ?
                     "<img class=\"arrow-img pull-right\" src=\"/Assets/Client/images/arrow1.png\" alt=\"\" />" :
                     "";
                 <li>
-                    <a href="@url">
+                    <a @href>
                         @productCategory.Name
                         @Html.Raw(hasImgIcon)
                     </a>

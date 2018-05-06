@@ -11,8 +11,9 @@ namespace OnlineShop.Service
     {
         IEnumerable<Product> GetAll();
         IEnumerable<Product> GetAll(string keyword);
-        IEnumerable<Product> GetLastest(int top=3);
-        IEnumerable<Product> GetHotProduct(int top=3);
+        IEnumerable<Product> GetProductsByCategoryPaging(int categoryId , int page , int pageSize , out int totalRow);
+        IEnumerable<Product> GetLastest(int top = 3);
+        IEnumerable<Product> GetHotProduct(int top = 3);
         Product GetById(int? id);
         Product Add(Product product);
         void Update(Product product);
@@ -26,7 +27,7 @@ namespace OnlineShop.Service
         private IProductTagRepository _productTagRepository;
         private IUnitOfWork _unitOfWork;
 
-        public ProductService(IProductRepository productRepository, IProductTagRepository productTagRepository, ITagRepository tagRepository, IUnitOfWork unitOfWork)
+        public ProductService(IProductRepository productRepository , IProductTagRepository productTagRepository , ITagRepository tagRepository , IUnitOfWork unitOfWork)
         {
             _productRepository = productRepository;
             _productTagRepository = productTagRepository;
@@ -48,6 +49,13 @@ namespace OnlineShop.Service
                         x.Description.ToUpper().Contains(keyword.ToUpper()));
         }
 
+        public IEnumerable<Product> GetProductsByCategoryPaging(int categoryId , int page , int pageSize , out int totalRow)
+        {
+            var query = _productRepository.GetMulti(x => x.Status && x.ProductCategoryId == categoryId).ToList();
+            totalRow = query.Count;
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
         public Product GetById(int? id)
         {
             return _productRepository.GetSingleById(id.GetValueOrDefault());
@@ -67,8 +75,8 @@ namespace OnlineShop.Service
                     {
                         Tag tagAdd = new Tag
                         {
-                            Name = tag,
-                            Id = tagId,
+                            Name = tag ,
+                            Id = tagId ,
                             Type = CommonConstants.ProductTag
                         };
                         _tagRepository.Add(tagAdd);
@@ -76,7 +84,7 @@ namespace OnlineShop.Service
 
                     ProductTag productTag = new ProductTag
                     {
-                        ProductId = product.Id,
+                        ProductId = product.Id ,
                         TagId = tagId
                     };
 
@@ -99,8 +107,8 @@ namespace OnlineShop.Service
                     {
                         Tag tagAdd = new Tag
                         {
-                            Name = tag,
-                            Id = tagId,
+                            Name = tag ,
+                            Id = tagId ,
                             Type = CommonConstants.ProductTag
                         };
                         _tagRepository.Add(tagAdd);
@@ -109,7 +117,7 @@ namespace OnlineShop.Service
                     _productTagRepository.DeleteMulti(x => x.ProductId == product.Id);
                     ProductTag productTag = new ProductTag
                     {
-                        ProductId = product.Id,
+                        ProductId = product.Id ,
                         TagId = tagId
                     };
 
@@ -137,7 +145,7 @@ namespace OnlineShop.Service
 
         public IEnumerable<Product> GetHotProduct(int top = 3)
         {
-            return _productRepository.GetMulti(x => x.Status&&x.HotFlag==true).OrderByDescending(x => x.CreatedDate).Take(top);
+            return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
 
         }
     }

@@ -9,6 +9,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
     <title>Big shope A Ecommerce Category Flat Bootstarp Resposive Website Template | Home :: w3layouts</title>
     <link href="../../Assets/Client/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Assets/Admin/libs/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <!--theme-style-->
     <link href="../../Assets/Client/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!--//theme-style-->
@@ -24,34 +25,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--header-->
     <div class="header">
         @{
-            Html.RenderAction("_HeaderPartial", "Home");
+            Html.RenderAction("_HeaderPartial" , "Home");
         }
     </div>
     <!-- container -->
     <div class="container">
         @RenderBody()
+        @* category *@
+        @{
+            Html.RenderAction("_CategoriesPartial" , "Home");
+        }
+        <div class="clearfix"></div>
     </div>
-
-    <!-- home product-->
-
-    @RenderSection("HomeProducts", false)
-
-    <div class="clearfix"></div>
-    </div>
-
-    @* category *@
-    @{
-        Html.RenderAction("_CategoriesPartial", "Home");
-    }
-    <div class="clearfix"></div>
-    </div>
-
     <!-- footer -->
+    <div class="footer">
+        @{
+            Html.RenderAction("_FooterPartial" , "Home");
+        }
+    </div>
 
-    @{
-        Html.RenderAction("_FooterPartial", "Home");
-    }
-
-    @RenderSection("EndScript", false)
+    @RenderSection("EndScript" , false)
 </body>
 </html>
