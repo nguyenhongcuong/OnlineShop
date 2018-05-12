@@ -17,10 +17,10 @@
                 <a href="@urlProductCategory"><h4>@productCategory.Name - <span>@Model.Count sản phẩm</span> </h4></a>
                 <ul class="w_nav">
                     <li>Sort : </li>
-                    <li><a class="active" href="#">Phổ biến</a></li> |
-                    <li><a href="#">Mới</a></li> |
-                    <li><a href="#">Giảm giá</a></li> |
-                    <li><a href="#">Giá: Thấp -> Cao </a></li>
+                    <li><a class="active" href="?page=@Model.Page&&sort=popular">Phổ biến</a></li> |
+                    <li><a href="?page=@Model.Page">Mới</a></li> |
+                    <li><a href="?page=@Model.Page&&sort=discount">Giảm giá</a></li> |
+                    <li><a href="?page=@Model.Page&&sort=price">Giá: Thấp -> Cao </a></li>
                     <li class="clearfix"></li>
                 </ul>
                 <div class="clearfix"></div>

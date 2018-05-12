@@ -25,11 +25,11 @@ namespace OnlineShop.Web.Controllers
             return View();
         }
 
-        public ActionResult Category(int id , int page = 1)
+        public ActionResult Category(int id , int page = 1 , string sort = "")
         {
             int totalRow;
             var pageSize = 12;
-            var products = _productService.GetProductsByCategoryPaging(id , page , pageSize , out totalRow);
+            var products = _productService.GetProductsByCategoryPaging(id , page , pageSize , sort , out totalRow);
 
             var productViewModel = Mapper.Map<IEnumerable<Product> , IEnumerable<ProductViewModel>>(products);
             var totalPage = Math.Ceiling((double)totalRow / pageSize);
@@ -44,7 +44,8 @@ namespace OnlineShop.Web.Controllers
                 TotalCount = totalRow ,
                 Page = page ,
                 TotalPages = (int)totalPage ,
-                MaxPage = 5
+                MaxPage = 5 ,
+                Sort = sort
 
             };
             return View(paginationSet);

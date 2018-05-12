@@ -11,7 +11,7 @@ namespace OnlineShop.Service
     {
         IEnumerable<Product> GetAll();
         IEnumerable<Product> GetAll(string keyword);
-        IEnumerable<Product> GetProductsByCategoryPaging(int categoryId , int page , int pageSize , out int totalRow);
+        IEnumerable<Product> GetProductsByCategoryPaging(int categoryId , int page , int pageSize , string sort , out int totalRow);
         IEnumerable<Product> GetLastest(int top = 3);
         IEnumerable<Product> GetHotProduct(int top = 3);
         Product GetById(int? id);
@@ -49,10 +49,25 @@ namespace OnlineShop.Service
                         x.Description.ToUpper().Contains(keyword.ToUpper()));
         }
 
-        public IEnumerable<Product> GetProductsByCategoryPaging(int categoryId , int page , int pageSize , out int totalRow)
+        public IEnumerable<Product> GetProductsByCategoryPaging(int categoryId , int page , int pageSize , string sort , out int totalRow)
         {
-            var query = _productRepository.GetMulti(x => x.Status && x.ProductCategoryId == categoryId).ToList();
-            totalRow = query.Count;
+            var query = _productRepository.GetMulti(x => x.Status && x.ProductCategoryId == categoryId);
+            switch (sort)
+            {
+                case "popular":
+                    query = query.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "discount":
+                    query = query.OrderByDescending(x => x.PromotionPrice.GetValueOrDefault());
+                    break;
+                case "price":
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.CreatedDate.GetValueOrDefault());
+                    break;
+            }
+            totalRow = query.Count();
             return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
 

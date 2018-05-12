@@ -15,6 +15,8 @@ namespace OnlineShop.Web.Infrastructure.Core
             get { return Items?.Count() ?? 0; }
         }
 
+        public string Sort { get; set; }
+
         public int TotalPages { get; set; }
         public int TotalCount { get; set; }
         public int MaxPage { get; set; }
