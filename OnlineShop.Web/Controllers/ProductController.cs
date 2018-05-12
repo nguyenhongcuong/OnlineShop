@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using OnlineShop.Model.Models;
@@ -46,6 +47,36 @@ namespace OnlineShop.Web.Controllers
                 TotalPages = (int)totalPage ,
                 MaxPage = 5 ,
                 Sort = sort
+
+            };
+            return View(paginationSet);
+        }
+
+        public JsonResult GetListNameOfProduct(string keyword)
+        {
+            var productNames = _productService.GetProductsByName(keyword).Select(x => x.Name).ToList();
+            return Json(new { data = productNames } , JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Search(string keyword , int page = 1 , string sort = "")
+        {
+            int totalRow;
+            var pageSize = 12;
+            var products = _productService.Search(keyword , sort , page , pageSize , out totalRow);
+
+            var productViewModel = Mapper.Map<IEnumerable<Product> , IEnumerable<ProductViewModel>>(products);
+            var totalPage = Math.Ceiling((double)totalRow / pageSize);
+
+
+            var paginationSet = new PaginationSet<ProductViewModel>
+            {
+                Items = productViewModel ,
+                TotalCount = totalRow ,
+                Page = page ,
+                TotalPages = (int)totalPage ,
+                MaxPage = 5 ,
+                Sort = sort ,
+                Keyword = keyword
 
             };
             return View(paginationSet);

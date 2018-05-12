@@ -16,6 +16,7 @@ namespace OnlineShop.Web.Infrastructure.Core
         }
 
         public string Sort { get; set; }
+        public string Keyword { get; set; }
 
         public int TotalPages { get; set; }
         public int TotalCount { get; set; }

@@ -12,8 +12,10 @@ namespace OnlineShop.Service
         IEnumerable<Product> GetAll();
         IEnumerable<Product> GetAll(string keyword);
         IEnumerable<Product> GetProductsByCategoryPaging(int categoryId , int page , int pageSize , string sort , out int totalRow);
+        IEnumerable<Product> GetProductsByName(string name);
         IEnumerable<Product> GetLastest(int top = 3);
         IEnumerable<Product> GetHotProduct(int top = 3);
+        IEnumerable<Product> Search(string keyword , string sort , int page , int pageSize , out int totalRow);
         Product GetById(int? id);
         Product Add(Product product);
         void Update(Product product);
@@ -71,10 +73,38 @@ namespace OnlineShop.Service
             return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
+        public IEnumerable<Product> GetProductsByName(string name)
+        {
+            return _productRepository.GetMulti(x => x.Status && x.Name.Contains(name));
+        }
+
+        public IEnumerable<Product> Search(string keyword , string sort , int page , int pageSize , out int totalRow)
+        {
+            var query = _productRepository.GetMulti(x => x.Status && x.Name.Contains(keyword));
+            switch (sort)
+            {
+                case "popular":
+                    query = query.OrderByDescending(x => x.ViewCount);
+                    break;
+                case "discount":
+                    query = query.OrderByDescending(x => x.PromotionPrice.GetValueOrDefault());
+                    break;
+                case "price":
+                    query = query.OrderBy(x => x.Price);
+                    break;
+                default:
+                    query = query.OrderByDescending(x => x.CreatedDate.GetValueOrDefault());
+                    break;
+            }
+            totalRow = query.Count();
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
         public Product GetById(int? id)
         {
             return _productRepository.GetSingleById(id.GetValueOrDefault());
         }
+
 
         public Product Add(Product product)
         {

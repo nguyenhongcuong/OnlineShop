@@ -10,6 +10,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <title>Big shope A Ecommerce Category Flat Bootstarp Resposive Website Template | Home :: w3layouts</title>
     <link href="../../Assets/Client/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Assets/Admin/libs/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Assets/Admin/libs/jquery-ui/themes/base/jquery-ui.css" rel="stylesheet" />
     <!--theme-style-->
     <link href="../../Assets/Client/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!--//theme-style-->
@@ -18,8 +19,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!--fonts-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!--//fonts-->
-    <script src="../../Assets/Client/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!--script-->
+    <script src="~/Assets/Client/js/common.js"></script>
 </head>
 <body>
     <!--header-->
@@ -44,6 +47,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         }
     </div>
 
+    <script>
+        $('#txt-keyword').autocomplete({
+            minLength: 0,
+            source: function (request, response) {
+                // Lấy datasources
+                $.ajax({
+                    url: "@Url.Action("GetListNameOfProduct","Product")",
+                    dataType: "json",
+                    data: {
+                        keyword: request.term
+                    },
+                    success: function (data) {
+                        response(data.data);
+                    }
+                });
+            },
+            focus: function (event, ui) {
+                $("#txt-keyword").val(ui.item.label);
+                return false;
+            },
+            select: function (event, ui) {
+                $("#txt-keyword").val(ui.item.label);
+                return false;
+            }
+        }).autocomplete("instance")._renderItem = function (ul, item) {
+            return $("<li>")
+                .append("<div>" + item.label + "</div>")
+                .appendTo(ul);
+        };
+
+    </script>
     @RenderSection("EndScript" , false)
 </body>
 </html>
