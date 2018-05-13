@@ -56,6 +56,13 @@ namespace OnlineShop.Web
             );
 
             routes.MapRoute(
+                name: "Page" ,
+                url: "page/{alias}" ,
+                defaults: new { controller = "Page" , action = "Index" , alias = UrlParameter.Optional } ,
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
