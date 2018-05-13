@@ -15,6 +15,7 @@ namespace OnlineShop.Service
         IEnumerable<Product> GetProductsByName(string name);
         IEnumerable<Product> GetLastest(int top = 3);
         IEnumerable<Product> GetHotProduct(int top = 3);
+        IEnumerable<Product> GetReatedProducts(int id , int top);
         IEnumerable<Product> Search(string keyword , string sort , int page , int pageSize , out int totalRow);
         Product GetById(int? id);
         Product Add(Product product);
@@ -76,6 +77,17 @@ namespace OnlineShop.Service
         public IEnumerable<Product> GetProductsByName(string name)
         {
             return _productRepository.GetMulti(x => x.Status && x.Name.Contains(name));
+        }
+
+        public IEnumerable<Product> GetReatedProducts(int id , int top)
+        {
+            var product = _productRepository.GetSingleById(id);
+            return _productRepository.GetMulti(
+                x => x.Status &&
+                x.Id != id &&
+                x.ProductCategoryId == product.ProductCategoryId)
+                .OrderByDescending(x => x.CreatedDate)
+                .Take(top);
         }
 
         public IEnumerable<Product> Search(string keyword , string sort , int page , int pageSize , out int totalRow)

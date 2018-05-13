@@ -1,8 +1,106 @@
-﻿
+﻿@using OnlineShop.Web.Models
+@model ProductViewModel
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var relatedProducts = (List<ProductViewModel>)ViewBag.RelatedProducts;
+    var moreImages = (List<string>)ViewBag.MoreImages;
 }
 
-<h2>Detail</h2>
+<div class="single_top">
+    <div class="single_grid">
+        <div class="grid images_3_of_2">
+            <ul id="etalage">
+                <li>
+                    <a>
+                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" alt="@Model.Name" />
+                        <img class="etalage_source_image img-responsive" src="@Model.Image" title="" alt="@Model.Name" />
+                    </a>
+                </li>
+                @if (moreImages.Any())
+                {
+                    foreach (var image in moreImages)
+                    {
+                        <li>
+                            <img class="etalage_thumb_image img-responsive" src="@image" alt="@Model.Name" />
+                            <img class="etalage_source_image img-responsive" src="@image" alt="@Model.Name" title="" />
+                        </li>
+                    }
+                }
 
+            </ul>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="desc1 span_3_of_2">
+            <h4>@Model.Name</h4>
+            <div class="cart-b">
+                <div class="left-n ">@(Model.Price == 0 ? "Liên hệ" : Model.Price.ToString("##,###")) vnđ</div>
+                <a class="now-get get-cart-in" href="/them-gio-hang/@Model.Id">Thêm vào giỏ</a>
+                <div class="clearfix"></div>
+            </div>
+            <h6>@Model.Quantity.GetValueOrDefault() sản phẩm trong kho</h6>
+            <p>@Html.Raw(Model.Description)</p>
+            <div class="share">
+                <h5>Chia sẻ :</h5>
+                <ul class="share_nav">
+                    <li><a href="#"><img src="../../Assets/Client/images/facebook.png" alt="Facebook" title="facebook"></a></li>
+                    <li><a href="#"><img src="../../Assets/Client/images/twitter.png" alt="Twitter" title="Twiiter"></a></li>
+                    <li><a href="#"><img src="../../Assets/Client/images/rss.png" alt="Rss" title="Rss"></a></li>
+                    <li><a href="#"><img src="../../Assets/Client/images/gpluse.png" alt="Google+" title="Google+"></a></li>
+                </ul>
+            </div>
+
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <ul id="flexiselDemo1">
+        @if (relatedProducts.Any())
+        {
+            foreach (var productViewModel in relatedProducts)
+            {
+                var url = $"/{productViewModel.Alias}/p-{productViewModel.Id}";
+                <li>
+                    <img src="@productViewModel.Image" alt="@productViewModel.Name" />
+                    <div class="grid-flex">
+                        <a href="@url">@productViewModel.Name</a>
+                        <p>@(productViewModel.Price == 0 ? "Liên hệ" : productViewModel.Price.ToString("##,###")) vnđ</p>
+                    </div>
+                </li>
+            }
+
+        }
+    </ul>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $("#flexiselDemo1").flexisel({
+                visibleItems: 5,
+                animationSpeed: 1000,
+                autoPlay: true,
+                autoPlaySpeed: 3000,
+                pauseOnHover: true,
+                enableResponsiveBreakpoints: true,
+                responsiveBreakpoints: {
+                    portrait: {
+                        changePoint: 480,
+                        visibleItems: 1
+                    },
+                    landscape: {
+                        changePoint: 640,
+                        visibleItems: 2
+                    },
+                    tablet: {
+                        changePoint: 768,
+                        visibleItems: 3
+                    }
+                }
+            });
+
+        });
+    </script>
+    <div class="toogle">
+        <h3 class="m_3">Chi tiết sản phẩm</h3>
+        <p class="m_text">@Html.Raw(Model.Content)</p>
+    </div>
+</div>
+<!---->

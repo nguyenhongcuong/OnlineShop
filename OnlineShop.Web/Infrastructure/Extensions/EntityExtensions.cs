@@ -5,7 +5,7 @@ namespace OnlineShop.Web.Infrastructure.Extensions
 {
     public static class EntityExtensions
     {
-        public static void UpdatePostCategory(this PostCategory postCategory,
+        public static void UpdatePostCategory(this PostCategory postCategory ,
             PostCategoryViewModel postCategoryViewModel)
         {
             postCategory.Id = postCategoryViewModel.Id;
@@ -27,7 +27,7 @@ namespace OnlineShop.Web.Infrastructure.Extensions
 
         }
 
-        public static void UpdatePost(this Post post, PostViewModel postViewModel)
+        public static void UpdatePost(this Post post , PostViewModel postViewModel)
         {
             post.Id = postViewModel.Id;
             post.Name = postViewModel.Name;
@@ -48,7 +48,7 @@ namespace OnlineShop.Web.Infrastructure.Extensions
             post.Status = postViewModel.Status;
         }
 
-        public static void UpdateProductCategory(this ProductCategory productCategory,
+        public static void UpdateProductCategory(this ProductCategory productCategory ,
             ProductCategoryViewModel productCategoryViewModel)
         {
             productCategory.Id = productCategoryViewModel.Id;
@@ -69,7 +69,7 @@ namespace OnlineShop.Web.Infrastructure.Extensions
             productCategory.Status = productCategoryViewModel.Status;
         }
 
-        public static void UpdateProduct(this Product product, ProductViewModel productViewModel)
+        public static void UpdateProduct(this Product product , ProductViewModel productViewModel)
         {
             product.Id = productViewModel.Id;
             product.Name = productViewModel.Name;
@@ -85,7 +85,8 @@ namespace OnlineShop.Web.Infrastructure.Extensions
             product.HomeFlag = productViewModel.HomeFlag;
             product.HotFlag = productViewModel.HotFlag;
             product.Tags = productViewModel.Tags;
-            
+            product.Quantity = productViewModel.Quantity;
+
 
             product.CreatedDate = productViewModel.CreatedDate;
             product.CreatedBy = productViewModel.CreatedBy;

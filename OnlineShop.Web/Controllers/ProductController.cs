@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using AutoMapper;
 using OnlineShop.Model.Models;
 using OnlineShop.Service;
@@ -23,7 +24,18 @@ namespace OnlineShop.Web.Controllers
         // GET: Product
         public ActionResult Detail(int id)
         {
-            return View();
+            var product = _productService.GetById(id);
+            var productsViewModel = Mapper.Map<Product , ProductViewModel>(product);
+
+            var relatedProducts = _productService.GetReatedProducts(id , 5);
+            ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProducts);
+
+            var moreImages = product.MoreImages;
+
+            var images = new JavaScriptSerializer().Deserialize<List<string>>(moreImages);
+            ViewBag.MoreImages = images; 
+
+            return View(productsViewModel);
         }
 
         public ActionResult Category(int id , int page = 1 , string sort = "")

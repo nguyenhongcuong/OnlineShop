@@ -5962,7 +5962,6 @@
     <Content Include="Assets\Client\images\wa.jpg" />
     <Content Include="Assets\Client\images\wat.jpg" />
     <Content Include="Assets\Client\images\zoom.png" />
-    <Content Include="Assets\Client\js\common.js" />
     <Content Include="Assets\Client\js\jquery.etalage.min.js" />
     <Content Include="Assets\Client\js\jquery.flexisel.js" />
     <Content Include="Assets\Client\js\jquery.min.js" />

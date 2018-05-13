@@ -47,6 +47,7 @@ namespace OnlineShop.Model.Models
         public int? ViewCount { get; set; }
 
         public string Tags { get; set; }
+        public int? Quantity { get; set; }
 
         [ForeignKey("ProductCategoryId")]
         public virtual ProductCategory ProductCategory { get; set; }

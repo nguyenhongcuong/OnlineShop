@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201804131530528_AddFieldContentForSlide.Designer.cs">
       <DependentUpon>201804131530528_AddFieldContentForSlide.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805130424579_AddQuantityForProduct.cs" />
+    <Compile Include="Migrations\201805130424579_AddQuantityForProduct.Designer.cs">
+      <DependentUpon>201805130424579_AddQuantityForProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OnlineShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804131530528_AddFieldContentForSlide.resx">
       <DependentUpon>201804131530528_AddFieldContentForSlide.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805130424579_AddQuantityForProduct.resx">
+      <DependentUpon>201805130424579_AddQuantityForProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
