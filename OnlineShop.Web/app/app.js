@@ -30,7 +30,7 @@
                 templateUrl: "/app/components/home/homeView.html",
                 controller: "homeController"
             });
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/admin');
     }
 
     function configAuthentication($httpProvider) {

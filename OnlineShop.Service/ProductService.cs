@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using OnlineShop.Common;
 using OnlineShop.Data.Infrastructure;
@@ -17,11 +18,15 @@ namespace OnlineShop.Service
         IEnumerable<Product> GetHotProduct(int top = 3);
         IEnumerable<Product> GetReatedProducts(int id , int top);
         IEnumerable<Product> Search(string keyword , string sort , int page , int pageSize , out int totalRow);
+        IEnumerable<Product> GetProductsByTagId(string tagId , int page , int pageSize , out int totalRow);
         Product GetById(int? id);
         Product Add(Product product);
         void Update(Product product);
         Product Delete(int? id);
         void Save();
+
+        IEnumerable<Tag> GetTagsByProductId(int id);
+        void IncreaseView(int id);
     }
     public class ProductService : IProductService
     {
@@ -195,6 +200,26 @@ namespace OnlineShop.Service
             _unitOfWork.Commit();
         }
 
+        public IEnumerable<Tag> GetTagsByProductId(int id)
+        {
+            var productTags = _productTagRepository.GetMulti(x => x.ProductId == id , new[] { "Tag" }).Select(y => y.Tag);
+            return productTags;
+        }
+
+        public void IncreaseView(int id)
+        {
+            var product = _productRepository.GetSingleById(id);
+            if (product.ViewCount.HasValue)
+            {
+                product.ViewCount += 1;
+            }
+            else
+            {
+                product.ViewCount = 1;
+            }
+        }
+
+
         public IEnumerable<Product> GetLastest(int top = 3)
         {
             return _productRepository.GetMulti(x => x.Status).OrderByDescending(x => x.CreatedDate).Take(top);
@@ -204,6 +229,11 @@ namespace OnlineShop.Service
         {
             return _productRepository.GetMulti(x => x.Status && x.HotFlag == true).OrderByDescending(x => x.CreatedDate).Take(top);
 
+        }
+
+        public IEnumerable<Product> GetProductsByTagId(string tagId , int page , int pageSize , out int totalRow)
+        {
+            return _productRepository.GetProductsByTag(tagId , page , pageSize , out totalRow);
         }
     }
 }

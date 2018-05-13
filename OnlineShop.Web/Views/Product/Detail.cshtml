@@ -5,7 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var relatedProducts = (List<ProductViewModel>)ViewBag.RelatedProducts;
     var moreImages = (List<string>)ViewBag.MoreImages;
+    var tags = (IEnumerable<TagViewModel>)ViewBag.Tags;
 }
+<style>
+    .tag {
+        display: block;
+    }
+
+    .tag-list li {
+        float: left;
+    }
+</style>
 
 <div class="single_top">
     <div class="single_grid">
@@ -40,7 +50,20 @@
             </div>
             <h6>@Model.Quantity.GetValueOrDefault() sản phẩm trong kho</h6>
             <p>@Html.Raw(Model.Description)</p>
-            <div class="share">
+            <div class="tag">
+                <h5><i class="fa fa-tags" aria-hidden="true"></i>&nbsp;Tag:</h5>
+                <ul class="tag-list">
+                    @foreach (var tag in tags)
+                    {
+                        var urlTag = $"/tag/{tag.Id}";
+                        <li>
+                            <a href="@urlTag">
+                                @tag.Name &nbsp;
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <div class="clearfix"></div>
                 <h5>Chia sẻ :</h5>
                 <ul class="share_nav">
                     <li><a href="#"><img src="../../Assets/Client/images/facebook.png" alt="Facebook" title="facebook"></a></li>

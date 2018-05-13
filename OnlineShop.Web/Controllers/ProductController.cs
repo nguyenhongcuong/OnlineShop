@@ -22,18 +22,24 @@ namespace OnlineShop.Web.Controllers
             _productCategoryService = productCategoryService;
         }
         // GET: Product
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int? id)
         {
+            if (id == null)
+                return RedirectToAction("Index" , "Home");
             var product = _productService.GetById(id);
+           
             var productsViewModel = Mapper.Map<Product , ProductViewModel>(product);
 
-            var relatedProducts = _productService.GetReatedProducts(id , 5);
-            ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(relatedProducts);
+            var relatedProducts = _productService.GetReatedProducts(id.GetValueOrDefault() , 5);
+            ViewBag.RelatedProducts = Mapper.Map<IEnumerable<Product> , IEnumerable<ProductViewModel>>(relatedProducts);
 
             var moreImages = product.MoreImages;
 
             var images = new JavaScriptSerializer().Deserialize<List<string>>(moreImages);
-            ViewBag.MoreImages = images; 
+            ViewBag.MoreImages = images;
+
+            var tags = _productService.GetTagsByProductId(id.GetValueOrDefault()).ToList();
+            ViewBag.Tags = Mapper.Map<IEnumerable<Tag> , IEnumerable<TagViewModel>>(tags);
 
             return View(productsViewModel);
         }
@@ -93,5 +99,30 @@ namespace OnlineShop.Web.Controllers
             };
             return View(paginationSet);
         }
+
+        public ActionResult GetProductsByTag(string tagId , int page = 1 )
+        {
+            int totalRow;
+            var pageSize = 12;
+            var products = _productService.GetProductsByTagId(tagId , page , pageSize , out totalRow);
+
+            var productViewModel = Mapper.Map<IEnumerable<Product> , IEnumerable<ProductViewModel>>(products);
+            var totalPage = Math.Ceiling((double)totalRow / pageSize);
+
+
+            var paginationSet = new PaginationSet<ProductViewModel>
+            {
+                Items = productViewModel ,
+                TotalCount = totalRow ,
+                Page = page ,
+                TotalPages = (int)totalPage ,
+                MaxPage = 5 ,
+                Keyword = tagId
+
+            };
+            return View(paginationSet);
+        }
+
+
     }
 }

@@ -49,6 +49,13 @@ namespace OnlineShop.Web
             );
 
             routes.MapRoute(
+                name: "Tag" ,
+                url: "tag/{tagId}" ,
+                defaults: new { controller = "Product" , action = "GetProductsByTag" , tagId = UrlParameter.Optional } ,
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
