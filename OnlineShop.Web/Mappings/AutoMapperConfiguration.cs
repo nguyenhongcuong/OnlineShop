@@ -18,6 +18,7 @@ namespace OnlineShop.Web.Mappings
                 cfg.CreateMap<ProductCategory , ProductCategoryViewModel>().MaxDepth(2);
                 cfg.CreateMap<ProductTag , ProductTagViewModel>().MaxDepth(2);
                 cfg.CreateMap<Slide , SlideViewModel>().MaxDepth(2);
+                cfg.CreateMap<ContactDetail , ContactDetailViewModel>().MaxDepth(2);
                 cfg.CreateMap<Page , PageViewModel>().MaxDepth(2);
             });
         }

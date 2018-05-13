@@ -28,6 +28,7 @@ namespace OnlineShop.Data
         public DbSet<SystemConfig> SystemConfigs { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<VisitorStatistic> VisitorStatistics { get; set; }
+        public DbSet<ContactDetail> ContactDetails { get; set; }
 
         public DbSet<ErrorLog> ErrorLogs { get; set; }
 

@@ -50,6 +50,7 @@ namespace OnlineShop.Data.Migrations
 
             CreateProductCategoryExample(context);
             CreatePage(context);
+            CreateContacDetail(context);
 
 
 
@@ -122,5 +123,23 @@ namespace OnlineShop.Data.Migrations
             }
         }
 
+
+        private void CreateContacDetail(OnlineShopDbContext dbContext)
+        {
+            var contactDetail = new ContactDetail
+            {
+                Name = "Online Shop" ,
+                Address = "Quảng Ninh" ,
+                Status = true ,
+                Email = "nguyenhongcuong@gmail.com" ,
+                Phone = "0123456789" ,
+                Website = "onlineshop.com.vn" ,
+                Lat = 21.054450 ,
+                Lng = 105.735077 ,
+                Other = ""
+            };
+            dbContext.ContactDetails.Add(contactDetail);
+            dbContext.SaveChanges();
+        }
     }
 }

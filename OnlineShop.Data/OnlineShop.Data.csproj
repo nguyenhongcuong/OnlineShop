@@ -92,9 +92,14 @@
     <Compile Include="Migrations\201805130424579_AddQuantityForProduct.Designer.cs">
       <DependentUpon>201805130424579_AddQuantityForProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805131009026_AddTableContactDetail.cs" />
+    <Compile Include="Migrations\201805131009026_AddTableContactDetail.Designer.cs">
+      <DependentUpon>201805131009026_AddTableContactDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OnlineShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ContactDetailRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
     <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\MenuGroupRepository.cs" />
@@ -149,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805130424579_AddQuantityForProduct.resx">
       <DependentUpon>201805130424579_AddQuantityForProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131009026_AddTableContactDetail.resx">
+      <DependentUpon>201805131009026_AddTableContactDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

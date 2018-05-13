@@ -1,0 +1,75 @@
+﻿@model OnlineShop.Web.Models.ContactDetailViewModel
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section EndScript
+{
+    <script>
+        function initMap() {
+            var uluru = { lat: @Model.Lat, lng: @Model.Lng };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 16,
+                center: uluru
+            });
+
+            var contentString = "@Model.Address";
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+                title: 'Uluru (Ayers Rock)'
+            });
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+        }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUDlY24PEx2jBKNyHWt_RsyrAzfPQjKgM&callback=initMap">
+    </script>
+}
+
+<style>
+    #map {
+        height: 400px;
+    }
+</style>
+
+<div class="main">
+    <div class="reservation_top">
+        <div class="contact_right">
+            <h3>Thông tin liên hệ</h3>
+            <address class="address">
+                <p>@Model.Address</p>
+                <dl>
+                    <dt> </dt>
+                    <dd>Điện thoại:<span> @Model.Phone</span></dd>
+                    <dd>E-mail:&nbsp; <a href="@Model.Email">@Model.Email</a></dd>
+                </dl>
+            </address>
+            <div class="clearfix"></div>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div class="reservation_top">
+        <div class="contact_right">
+            <h3>Liên hệ</h3>
+            <div class="contact-form">
+                <form method="post" action="">
+                    <input type="text" value="Name">
+                    <input type="text" value="Email">
+                    <textarea value="Message">Message</textarea>
+                    <input type="submit" value="Send">
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
