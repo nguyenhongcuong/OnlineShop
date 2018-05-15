@@ -1,4 +1,7 @@
-﻿let contat = {
+﻿/// <reference path="jquery.etalage.min.js" />
+
+
+let contat = {
     init: function () {
         contat.registerEvents();
     },

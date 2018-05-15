@@ -16,6 +16,7 @@
     "ckeditor": "4.9.1",
     "angular-local-storage": "0.7.1",
     "angular-loading-bar": "0.9.0",
-    "jquery-ui": "1.12.1"
+    "jquery-ui": "1.12.1",
+    "jquery-validation": "1.17.0"
   }
 }

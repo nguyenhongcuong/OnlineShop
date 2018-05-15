@@ -99,5 +99,15 @@ namespace OnlineShop.Web.Infrastructure.Extensions
 
         }
 
+        public static void UpdateFeedback(this Feedback feedback , FeedbackViewModel feedbackViewModel)
+        {
+            feedback.Id = feedbackViewModel.Id;
+            feedback.Name = feedbackViewModel.Name;
+            feedback.Email = feedbackViewModel.Email;
+            feedback.Message = feedbackViewModel.Message;
+            feedback.CreatdDate = feedbackViewModel.CreatdDate;
+            feedback.Status = feedbackViewModel.Status;
+        }
+
     }
 }

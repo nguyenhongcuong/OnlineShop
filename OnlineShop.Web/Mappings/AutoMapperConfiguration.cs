@@ -20,6 +20,7 @@ namespace OnlineShop.Web.Mappings
                 cfg.CreateMap<Slide , SlideViewModel>().MaxDepth(2);
                 cfg.CreateMap<ContactDetail , ContactDetailViewModel>().MaxDepth(2);
                 cfg.CreateMap<Page , PageViewModel>().MaxDepth(2);
+                cfg.CreateMap<Feedback , FeedbackViewModel>().MaxDepth(2);
             });
         }
     }

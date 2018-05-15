@@ -29,6 +29,7 @@ namespace OnlineShop.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<VisitorStatistic> VisitorStatistics { get; set; }
         public DbSet<ContactDetail> ContactDetails { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
 
         public DbSet<ErrorLog> ErrorLogs { get; set; }
 
@@ -39,7 +40,7 @@ namespace OnlineShop.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId, i.RoleId });
+            modelBuilder.Entity<IdentityUserRole>().HasKey(i => new { i.UserId , i.RoleId });
             modelBuilder.Entity<IdentityUserLogin>().HasKey(i => i.UserId);
             base.OnModelCreating(modelBuilder);
         }

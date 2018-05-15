@@ -96,11 +96,20 @@
     <Compile Include="Migrations\201805131009026_AddTableContactDetail.Designer.cs">
       <DependentUpon>201805131009026_AddTableContactDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805131228260_AddTableFeedback.cs" />
+    <Compile Include="Migrations\201805131228260_AddTableFeedback.Designer.cs">
+      <DependentUpon>201805131228260_AddTableFeedback.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805131426469_UpdateCreateDateTableFeedback.cs" />
+    <Compile Include="Migrations\201805131426469_UpdateCreateDateTableFeedback.Designer.cs">
+      <DependentUpon>201805131426469_UpdateCreateDateTableFeedback.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OnlineShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ContactDetailRepository.cs" />
     <Compile Include="Repositories\ErrorRepository.cs" />
+    <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\FooterRepository.cs" />
     <Compile Include="Repositories\MenuGroupRepository.cs" />
     <Compile Include="Repositories\MenuRepository.cs" />
@@ -157,6 +166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805131009026_AddTableContactDetail.resx">
       <DependentUpon>201805131009026_AddTableContactDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131228260_AddTableFeedback.resx">
+      <DependentUpon>201805131228260_AddTableFeedback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131426469_UpdateCreateDateTableFeedback.resx">
+      <DependentUpon>201805131426469_UpdateCreateDateTableFeedback.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

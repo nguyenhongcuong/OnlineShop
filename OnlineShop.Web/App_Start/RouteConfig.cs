@@ -12,32 +12,33 @@ namespace OnlineShop.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.IgnoreRoute("{*botdetect}" ,
+                new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
             routes.MapRoute(
-                name: "Login",
-                url: "dang-nhap",
-                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
+                name: "Login" ,
+                url: "dang-nhap" ,
+                defaults: new { controller = "Account" , action = "Login" , id = UrlParameter.Optional } ,
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
             );
 
             routes.MapRoute(
-                name: "About",
-                url: "gioi-thieu",
-                defaults: new { controller = "About", action = "Index", id = UrlParameter.Optional },
-                namespaces:new string[] { "OnlineShop.Web.Controllers" }
-            );
-
-            routes.MapRoute(
-                name: "Product Category",
-                url: "{alias}/pc-{id}",
-                defaults: new { controller = "Product", action = "Category", id = UrlParameter.Optional },
+                name: "About" ,
+                url: "gioi-thieu" ,
+                defaults: new { controller = "About" , action = "Index" , id = UrlParameter.Optional } ,
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
             );
 
             routes.MapRoute(
-                name: "Product Detail",
-                url: "{alias}/p-{id}",
-                defaults: new { controller = "Product", action = "Detail", id = UrlParameter.Optional },
+                name: "Product Category" ,
+                url: "{alias}/pc-{id}" ,
+                defaults: new { controller = "Product" , action = "Category" , id = UrlParameter.Optional } ,
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "Product Detail" ,
+                url: "{alias}/p-{id}" ,
+                defaults: new { controller = "Product" , action = "Detail" , id = UrlParameter.Optional } ,
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
             );
 
@@ -70,9 +71,9 @@ namespace OnlineShop.Web
             );
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                name: "Default" ,
+                url: "{controller}/{action}/{id}" ,
+                defaults: new { controller = "Home" , action = "Index" , id = UrlParameter.Optional } ,
                 namespaces: new string[] { "OnlineShop.Web.Controllers" }
             );
         }

@@ -1,36 +1,52 @@
-﻿@model OnlineShop.Web.Models.ContactDetailViewModel
+﻿@using BotDetect.Web.Mvc
+@model OnlineShop.Web.Models.FeedbackViewModel
 @{
     ViewBag.Title = "Liên hệ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section EndScript
 {
+    <script src="~/Assets/Admin/libs/jquery-validation/dist/jquery.validate.js"></script>
+
+
     <script>
-        function initMap() {
-            var uluru = { lat: @Model.Lat, lng: @Model.Lng };
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 16,
-                center: uluru
-            });
+        $("#frm-feedback").validate({
+            rules: {
+                txt_name: {
+                    required: true,
+                    minlength: 5
+                },
+                txt_email: {
+                    required: true,
+                    email: true
+                },
+                txt_message: {
+                    required: true
+                }
+            },
+            messages: {
+                txt_name: {
+                    required: 'Vui lòng nhập họ tên !',
+                    minlength: 'Tối đa 5 kí tự',
+                },
+                txt_email: {
+                    required: 'Vui lòng nhập email !',
+                    email: 'Email không hợp lệ !'
 
-            var contentString = "@Model.Address";
+                },
+                txt_message: {
+                    required: 'Vui lòng nhập tin nhắn !'
+                }
+            }
+        });
 
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
+        $("#btn-feedback").click(function () {
+            debugger;
+            if ($("#frm-feedback").valid()) {
+                $("#frm-feedback").submit();
+            }
 
-            var marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-                title: 'Uluru (Ayers Rock)'
-            });
-            marker.addListener('click', function () {
-                infowindow.open(map, marker);
-            });
-        }
-
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUDlY24PEx2jBKNyHWt_RsyrAzfPQjKgM&callback=initMap">
+        });
     </script>
 }
 
@@ -38,38 +54,50 @@
     #map {
         height: 400px;
     }
+
+    .error {
+        color: red;
+        font-style: italic;
+        font-weight: normal;
+    }
 </style>
 
 <div class="main">
     <div class="reservation_top">
-        <div class="contact_right">
-            <h3>Thông tin liên hệ</h3>
-            <address class="address">
-                <p>@Model.Address</p>
-                <dl>
-                    <dt> </dt>
-                    <dd>Điện thoại:<span> @Model.Phone</span></dd>
-                    <dd>E-mail:&nbsp; <a href="@Model.Email">@Model.Email</a></dd>
-                </dl>
-            </address>
-            <div class="clearfix"></div>
-            <div id="map"></div>
-        </div>
+        @{
+            Html.RenderAction("_ContactDetailPartial" , "Contact");
+        }
     </div>
 
     <div class="reservation_top">
         <div class="contact_right">
             <h3>Liên hệ</h3>
             <div class="contact-form">
-                <form method="post" action="">
-                    <input type="text" value="Name">
-                    <input type="text" value="Email">
-                    <textarea value="Message">Message</textarea>
-                    <input type="submit" value="Send">
+                @using (Html.BeginForm("Index" , "Contact" , FormMethod.Post , new { id = "frm-feedback" }))
+                {
+                    if (ViewBag.SuccessMsg != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            <strong>@ViewBag.SuccessMsg</strong>
+                        </div>
+                    }
+                    @Html.ValidationSummary(false , "" , new { @class = "error" })
+                    @Html.TextBoxFor(x => x.Name , new { @class = "" })
+                    @Html.TextBoxFor(x => x.Email , new { @class = "" })
+                    @Html.TextAreaFor(x => x.Message , new { @class = "" })
+                    @Html.HiddenFor(x => x.CreatdDate , new { @class = "" })
+                    @Html.HiddenFor(x => x.Status , new { @class = "" })
+                    MvcCaptcha contactCaptcha = new MvcCaptcha("ContactCaptcha");
+                    @Html.Captcha(contactCaptcha)
+                    @Html.TextBox("CaptchaCode")
+
+
+                    <div>
+                        <input type="button" id="btn-feedback" value="Send">
+                    </div>
                     <div class="clearfix"></div>
-                </form>
+                }
             </div>
         </div>
     </div>
 </div>
-
