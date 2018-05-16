@@ -55,7 +55,7 @@ namespace OnlineShop.Web.Controllers
                 feedbackCreate.UpdateFeedback(feedbackViewModel);
                 _feedbackService.Create(feedbackCreate);
                 _feedbackService.Save();
-                ViewBag.SuccessMsg = "Gửi phản hồi thành công. Chúng tôi sẽ xem xét phản hồi của bạn.";
+                TempData["SuccessMsg"] = "Gửi phản hồi thành công. Chúng tôi sẽ xem xét phản hồi của bạn.";
 
                 string content = System.IO.File.ReadAllText(Server.MapPath(
                     @"~/Assets/Client/mail_template/mailcontact.html"));
@@ -67,8 +67,7 @@ namespace OnlineShop.Web.Controllers
 
 
                 MailHelper.SendMail(adminMail , "Thông tin liên hệ từ website OnlineShop" , content);
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Contact");
             }
             return View(feedbackViewModel);
 

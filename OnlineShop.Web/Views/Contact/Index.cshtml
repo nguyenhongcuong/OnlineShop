@@ -75,18 +75,25 @@
             <div class="contact-form">
                 @using (Html.BeginForm("Index" , "Contact" , FormMethod.Post , new { id = "frm-feedback" }))
                 {
-                    if (ViewBag.SuccessMsg != null)
+                    if (TempData["SuccessMsg"] != null)
                     {
                         <div class="alert alert-success" role="alert">
-                            <strong>@ViewBag.SuccessMsg</strong>
+                            <strong>@TempData["SuccessMsg"]</strong>
                         </div>
                     }
                     @Html.ValidationSummary(false , "" , new { @class = "error" })
+                    <label>Họ và tên: </label>
                     @Html.TextBoxFor(x => x.Name , new { @class = "" })
+
+                    <label>Email: </label>
                     @Html.TextBoxFor(x => x.Email , new { @class = "" })
+
+                    <label>Tin nhắn: </label>
                     @Html.TextAreaFor(x => x.Message , new { @class = "" })
+
                     @Html.HiddenFor(x => x.CreatdDate , new { @class = "" })
                     @Html.HiddenFor(x => x.Status , new { @class = "" })
+
                     MvcCaptcha contactCaptcha = new MvcCaptcha("ContactCaptcha");
                     @Html.Captcha(contactCaptcha)
                     @Html.TextBox("CaptchaCode")

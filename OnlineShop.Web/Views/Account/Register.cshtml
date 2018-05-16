@@ -1,0 +1,68 @@
+﻿@using BotDetect.Web.Mvc
+@model OnlineShop.Web.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Đăng ký thành viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .error {
+        color: red;
+        font-style: italic;
+    }
+</style>
+
+<div class="register">
+    @using (Html.BeginForm("Register" , "Account" , FormMethod.Post , new { id = "frm-register" }))
+    {
+        if (TempData["RegisterSuccess"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <strong>Chúc mừng</strong> bạn đã đăng ký thành công
+                <br />
+                Vui lòng click <a href="/dang-nhap">vào đây</a> để đăng nhập
+            </div>
+        }
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false , "" , new { @class = "error" })
+        <div class="register-top-grid">
+            <h3>Thông tin thành viên</h3>
+            <div class="mation">
+                <span>Họ tên<label> *</label></span>
+                @Html.TextBoxFor(x => x.FullName)
+
+                <span>Tài khoản<label> *</label></span>
+                @Html.TextBoxFor(x => x.UserName)
+
+                <span>Mật khẩu<label> *</label></span>
+                @Html.TextBoxFor(x => x.Password , "" , new { @type = "password" })
+
+                <span>Email<label> *</label></span>
+                @Html.TextBoxFor(x => x.Email)
+
+                <span>Địa chỉ<label></label></span>
+                @Html.TextBoxFor(x => x.Address)
+
+                <span>Số điện thoại<label> *</label></span>
+                @Html.TextBoxFor(x => x.PhoneNumber)      
+                
+                @{
+                    MvcCaptcha registerCaptcha = new MvcCaptcha("RegisterCaptcha");
+                }
+                @Html.Captcha(registerCaptcha)
+                @Html.TextBox("CaptchaCode")
+
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+        <div class="register-but">
+            <input type="submit" value="submit">
+            <div class="clearfix"> </div>
+        </div>
+    }
+
+</div>

@@ -22,6 +22,13 @@ namespace OnlineShop.Web
             );
 
             routes.MapRoute(
+                name: "Register" ,
+                url: "dang-ky" ,
+                defaults: new { controller = "Account" , action = "Register" , id = UrlParameter.Optional } ,
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "About" ,
                 url: "gioi-thieu" ,
                 defaults: new { controller = "About" , action = "Index" , id = UrlParameter.Optional } ,
