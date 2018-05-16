@@ -25,7 +25,6 @@ namespace OnlineShop.Web.Controllers
 
         }
 
-        [OutputCache(Duration = 120 , Location = OutputCacheLocation.Server)]
         public ActionResult Index()
         {
             var slides = _commonService.GetSlides();
@@ -56,7 +55,6 @@ namespace OnlineShop.Web.Controllers
 
 
         [ChildActionOnly]
-        [OutputCache(Duration = 3600)]
         public ActionResult _HeaderPartial()
         {
             return PartialView();

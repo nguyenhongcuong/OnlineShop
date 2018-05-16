@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Configuration;
-using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using BotDetect.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using OnlineShop.Common;
-using OnlineShop.Data;
 using OnlineShop.Model.Models;
 using OnlineShop.Web.App_Start;
 using OnlineShop.Web.Models;
@@ -54,9 +52,44 @@ namespace OnlineShop.Web.Controllers
                 _userManager = value;
             }
         }
+        [HttpGet]
         // GET: Account
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
+            TempData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginViewModel loginViewModel , string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindAsync(loginViewModel.UserName , loginViewModel.Password);
+                if (user != null)
+                {
+                    IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+                    authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                    ClaimsIdentity claimsIdentity =
+                        _userManager.CreateIdentity(user , DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthenticationProperties authenticationProperties = new AuthenticationProperties();
+                    authenticationProperties.IsPersistent = loginViewModel.RememberMe;
+                    authenticationManager.SignIn(authenticationProperties , claimsIdentity);
+                    if (Url.IsLocalUrl(returnUrl))
+                    {
+                        return RedirectToAction(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("" , @"Tên tài khoản hoặc mật khẩu không đúng");
+                }
+            }
+            TempData["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -115,6 +148,13 @@ namespace OnlineShop.Web.Controllers
 
 
             return View(registerViewModel);
+        }
+
+        public ActionResult Logout()
+        {
+            IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

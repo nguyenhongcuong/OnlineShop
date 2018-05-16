@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using OnlineShop.Data;
 using OnlineShop.Model.Models;
@@ -52,19 +53,31 @@ namespace OnlineShop.Web.App_Start
             //app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie); 
             #endregion
 
-    
+
             app.CreatePerOwinContext<UserManager<ApplicationUser>>(CreateManager);
             app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
             {
-                TokenEndpointPath = new PathString("/oauth/token"),
-                Provider = new AuthorizationServerProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                TokenEndpointPath = new PathString("/oauth/token") ,
+                Provider = new AuthorizationServerProvider() ,
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30) ,
                 AllowInsecureHttp = true
             });
-
-
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
+            // Configure the sign in cookie
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie ,
+                LoginPath = new PathString("/dang-nhap") ,
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager , ApplicationUser>(
+                         validateInterval: TimeSpan.FromMinutes(30) ,
+                         regenerateIdentity: (manager , user) => user.GenerateUserIdentityAsync(manager))
+                }
+            });
+
+            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(
             //    clientId: "",
@@ -94,15 +107,16 @@ namespace OnlineShop.Web.App_Start
             {
                 var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
 
-                if (allowedOrigin == null) allowedOrigin = "*";
+                if (allowedOrigin == null)
+                    allowedOrigin = "*";
 
-                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin" , new[] { allowedOrigin });
 
                 UserManager<ApplicationUser> userManager = context.OwinContext.GetUserManager<UserManager<ApplicationUser>>();
                 ApplicationUser user;
                 try
                 {
-                    user = await userManager.FindAsync(context.UserName, context.Password);
+                    user = await userManager.FindAsync(context.UserName , context.Password);
                 }
                 catch
                 {
@@ -114,13 +128,13 @@ namespace OnlineShop.Web.App_Start
                 if (user != null)
                 {
                     ClaimsIdentity identity = await userManager.CreateIdentityAsync(
-                                                           user,
+                                                           user ,
                                                            DefaultAuthenticationTypes.ExternalBearer);
                     context.Validated(identity);
                 }
                 else
                 {
-                    context.SetError("invalid_grant", "Tài khoản hoặc mật khẩu không đúng.'");
+                    context.SetError("invalid_grant" , "Tài khoản hoặc mật khẩu không đúng.'");
                     context.Rejected();
                 }
             }
@@ -128,7 +142,7 @@ namespace OnlineShop.Web.App_Start
 
 
 
-        private static UserManager<ApplicationUser> CreateManager(IdentityFactoryOptions<UserManager<ApplicationUser>> options, IOwinContext context)
+        private static UserManager<ApplicationUser> CreateManager(IdentityFactoryOptions<UserManager<ApplicationUser>> options , IOwinContext context)
         {
             var userStore = new UserStore<ApplicationUser>(context.Get<OnlineShopDbContext>());
             var owinManager = new UserManager<ApplicationUser>(userStore);

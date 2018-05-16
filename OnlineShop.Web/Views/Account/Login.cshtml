@@ -1,8 +1,39 @@
-﻿
+﻿@model OnlineShop.Web.Models.LoginViewModel
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Đăng nhập hệ thống";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Login</h2>
+<div class="account_grid">
+    <div class="login-right">
+        <h3>ĐĂNG KÝ TÀI KHOẢN</h3>
+        <p>Nếu bạn có tài khoản hãy đăng nhập</p>
+        @using (Html.BeginForm("Login" , "Account" , new { retunUrl = TempData["ReturnUrl"] } , FormMethod.Post))
+        {
 
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false , "" , new { @class = "error" })
+            <div>
+                <span>Tài khoản<label> *</label></span>
+                @Html.TextBoxFor(x => x.UserName)
+            </div>
+            <div>
+                <span>Mật khẩu<label> *</label></span>
+                @Html.PasswordFor(x => x.Password)
+            </div>
+            <div>
+                @Html.CheckBoxFor(x => x.RememberMe)
+                Nhớ mật khẩu
+            </div>
+            <a class="forgot" href="">Quên mật khẩu</a>
+            <input type="submit" value="Đăng nhập">
+        }
+
+    </div>
+    <div class="login-left">
+        <h3>Tạo mới Tài khoản</h3>
+        <p>Bằng cách tạo tài khoản với cửa hàng của chúng tôi, bạn sẽ có thể di chuyển qua quy trình thanh toán nhanh hơn, lưu trữ nhiều địa chỉ giao hàng, xem và theo dõi đơn hàng của bạn trong tài khoản của bạn và hơn thế nữa.</p>
+        <a class="acount-btn" href="/dang-ky">Tạo tài khoản</a>
+    </div>
+    <div class="clearfix"> </div>
+</div>

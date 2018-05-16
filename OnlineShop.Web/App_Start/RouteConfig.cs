@@ -14,6 +14,7 @@ namespace OnlineShop.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("{*botdetect}" ,
                 new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
+
             routes.MapRoute(
                 name: "Login" ,
                 url: "dang-nhap" ,

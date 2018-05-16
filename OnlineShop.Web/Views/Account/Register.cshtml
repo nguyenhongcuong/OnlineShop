@@ -5,13 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .error {
-        color: red;
-        font-style: italic;
-    }
-</style>
-
 <div class="register">
     @using (Html.BeginForm("Register" , "Account" , FormMethod.Post , new { id = "frm-register" }))
     {

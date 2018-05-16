@@ -4,6 +4,11 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
+.error {
+    color: red;
+    font-style: italic;
+}
+
 body {
     background: #fff;
     font-family: 'Open Sans', sans-serif;
@@ -1005,7 +1010,7 @@ p.m_text {
     text-transform: uppercase;
 }
 
-.login-right input[type="text"] {
+.login-right input[type="text"], .login-right input[type="password"] {
     border: 1px solid #DDDBDB;
     outline-color: #fb4d01;
     width: 96%;
