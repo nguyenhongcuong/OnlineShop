@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201805131426469_UpdateCreateDateTableFeedback.Designer.cs">
       <DependentUpon>201805131426469_UpdateCreateDateTableFeedback.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805200949270_NewUpdate.cs" />
+    <Compile Include="Migrations\201805200949270_NewUpdate.Designer.cs">
+      <DependentUpon>201805200949270_NewUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OnlineShopDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -172,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805131426469_UpdateCreateDateTableFeedback.resx">
       <DependentUpon>201805131426469_UpdateCreateDateTableFeedback.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805200949270_NewUpdate.resx">
+      <DependentUpon>201805200949270_NewUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

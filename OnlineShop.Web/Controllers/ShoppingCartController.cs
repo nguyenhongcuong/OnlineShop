@@ -1,9 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
+using OnlineShop.Common;
 using OnlineShop.Model.Models;
 using OnlineShop.Service;
+using OnlineShop.Web.App_Start;
+using OnlineShop.Web.Infrastructure.Extensions;
 using OnlineShop.Web.Models;
 
 namespace OnlineShop.Web.Controllers
@@ -11,10 +16,14 @@ namespace OnlineShop.Web.Controllers
     public class ShoppingCartController : Controller
     {
         private IProductService _productService;
+        private IOrderService _orderService;
+        private ApplicationUserManager _userManager;
 
-        public ShoppingCartController(IProductService productService)
+        public ShoppingCartController(IProductService productService, ApplicationUserManager userManager, IOrderService orderService)
         {
             _productService = productService;
+            _orderService = orderService;
+            _userManager = userManager;
         }
         // GET: ShoppingCart
         public ActionResult Index()
@@ -121,6 +130,54 @@ namespace OnlineShop.Web.Controllers
             }
 
             Session[Common.CommonConstants.SessionCart] = cartSession;
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public JsonResult GetUser()
+        {
+            if (Request.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var user = _userManager.FindById(userId);
+                return Json(new
+                {
+                    data = user,
+                    status = true
+                });
+            }
+            return Json(new
+            {
+                status = false
+            });
+        }
+
+        public JsonResult CreateOrder(string orderViewModel)
+        {
+            var order = new JavaScriptSerializer().Deserialize<OrderViewModel>(orderViewModel);
+            var orderNew = new Order();
+
+            orderNew.UpdateOrder(order);
+
+            if (Request.IsAuthenticated)
+            {
+                orderNew.CustomerId = User.Identity.GetUserId();
+                orderNew.CreatedBy = User.Identity.GetUserName();
+            }
+
+            var cart = (List<ShoppingCartViewModel>)Session[CommonConstants.SessionCart];
+            List<OrderDetail> orderDetails = new List<OrderDetail>();
+            foreach (var item in cart)
+            {
+                var detail = new OrderDetail();
+                detail.ProductId = item.ProductId;
+                detail.Quantity = item.Quantity;
+                orderDetails.Add(detail);
+            }
+
+            _orderService.Create(orderNew, orderDetails);
             return Json(new
             {
                 status = true
