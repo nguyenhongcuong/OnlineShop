@@ -1,20 +1,17 @@
 ﻿@using OnlineShop.Web.Models
-@model ProductViewModel
+@model OnlineShop.Web.Models.ProductViewModel
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var relatedProducts = (List<ProductViewModel>)ViewBag.RelatedProducts;
-    var moreImages = (List<string>)ViewBag.MoreImages;
-    var tags = (IEnumerable<TagViewModel>)ViewBag.Tags;
+    var relatedProducts = (List<ProductViewModel>) ViewBag.RelatedProducts;
+    var moreImages = (List<string>) ViewBag.MoreImages;
+    var tags = (IEnumerable<TagViewModel>) ViewBag.Tags;
 }
-<style>
-    .tag {
-        display: block;
-    }
 
-    .tag-list li {
-        float: left;
-    }
+<style>
+    .tag { display: block; }
+
+    .tag-list li { float: left; }
 </style>
 
 <div class="single_top">
@@ -23,17 +20,17 @@
             <ul id="etalage">
                 <li>
                     <a>
-                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" alt="@Model.Name" />
-                        <img class="etalage_source_image img-responsive" src="@Model.Image" title="" alt="@Model.Name" />
+                        <img class="etalage_thumb_image img-responsive" src="@Model.Image" alt="@Model.Name"/>
+                        <img class="etalage_source_image img-responsive" src="@Model.Image" title="" alt="@Model.Name"/>
                     </a>
                 </li>
-                @if (moreImages.Any())
+                @if (moreImages != null && moreImages.Any())
                 {
                     foreach (var image in moreImages)
                     {
                         <li>
-                            <img class="etalage_thumb_image img-responsive" src="@image" alt="@Model.Name" />
-                            <img class="etalage_source_image img-responsive" src="@image" alt="@Model.Name" title="" />
+                            <img class="etalage_thumb_image img-responsive" src="@image" alt="@Model.Name"/>
+                            <img class="etalage_source_image img-responsive" src="@image" alt="@Model.Name" title=""/>
                         </li>
                     }
                 }
@@ -45,7 +42,7 @@
             <h4>@Model.Name</h4>
             <div class="cart-b">
                 <div class="left-n ">@(Model.Price == 0 ? "Liên hệ" : Model.Price.ToString("##,###")) vnđ</div>
-                <a class="now-get get-cart-in" href="/them-gio-hang/@Model.Id">Thêm vào giỏ</a>
+                <a class="now-get get-cart-in" href="#" data-id="@Model.Id" id="btn-add-to-cart">Thêm vào giỏ</a>
                 <div class="clearfix"></div>
             </div>
             <h6>@Model.Quantity.GetValueOrDefault() sản phẩm trong kho</h6>
@@ -66,10 +63,26 @@
                 <div class="clearfix"></div>
                 <h5>Chia sẻ :</h5>
                 <ul class="share_nav">
-                    <li><a href="#"><img src="../../Assets/Client/images/facebook.png" alt="Facebook" title="facebook"></a></li>
-                    <li><a href="#"><img src="../../Assets/Client/images/twitter.png" alt="Twitter" title="Twiiter"></a></li>
-                    <li><a href="#"><img src="../../Assets/Client/images/rss.png" alt="Rss" title="Rss"></a></li>
-                    <li><a href="#"><img src="../../Assets/Client/images/gpluse.png" alt="Google+" title="Google+"></a></li>
+                    <li>
+                        <a href="#">
+                            <img src="../../Assets/Client/images/facebook.png" alt="Facebook" title="facebook">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../../Assets/Client/images/twitter.png" alt="Twitter" title="Twiiter">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../../Assets/Client/images/rss.png" alt="Rss" title="Rss">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="../../Assets/Client/images/gpluse.png" alt="Google+" title="Google+">
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -84,18 +97,17 @@
             {
                 var url = $"/{productViewModel.Alias}/p-{productViewModel.Id}";
                 <li>
-                    <img src="@productViewModel.Image" alt="@productViewModel.Name" />
+                    <img src="@productViewModel.Image" alt="@productViewModel.Name"/>
                     <div class="grid-flex">
                         <a href="@url">@productViewModel.Name</a>
                         <p>@(productViewModel.Price == 0 ? "Liên hệ" : productViewModel.Price.ToString("##,###")) vnđ</p>
                     </div>
                 </li>
             }
-
         }
     </ul>
     <script type="text/javascript">
-        $(window).load(function () {
+        $(window).load(function() {
             $("#flexiselDemo1").flexisel({
                 visibleItems: 5,
                 animationSpeed: 1000,

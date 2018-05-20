@@ -10,5 +10,6 @@ namespace OnlineShop.Common
     {
         public const string ProductTag = "ProductTag";
         public const string PostTag = "PostTag";
+        public const string SessionCart = "SessionCart";
     }
 }

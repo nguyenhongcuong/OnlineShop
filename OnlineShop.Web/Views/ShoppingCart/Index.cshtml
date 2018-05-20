@@ -1,0 +1,50 @@
+﻿@model List<OnlineShop.Web.Models.ShoppingCartViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section EndScript
+{
+    <script src="~/Assets/Client/js/shoppingCart.js"></script>
+}
+<div class="single_top">
+    <div class="single_grid">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <td>STT</td>
+                    <td>Tên sản phẩm</td>
+                    <td>Hình ảnh</td>
+                    <td>Giá</td>
+                    <td>Số lượng</td>
+                    <td>Thành tiền</td>         
+                </tr>
+            </thead>
+            <tbody id="cartBody"></tbody>
+        </table>      
+        <div class="pull-right">
+            Tổng tiền: <span id="total-amount"></span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+<script id="tplCart" type="x-tmpl-mustache">
+    <tr>
+        <td>{{ProductId}}</td>
+        <td>{{ProductName}}</td>
+        <td>
+            <img src="{{Image}}" class="img-thumbnail" width="100" />
+        </td>
+        <td>{{Price}}</td>
+        <td><input type="number" class="txt-quantity form-control" data-id="{{ProductId}}" style="text-align:center; width:80px" value="{{Quantity}}" /></td>
+        <td>{{Amount}}</td>
+        <td>
+            <button class="btn btn-danger btn-delete-item" data-id="{{ProductId}}">
+                <i class="fa fa-close"></i>
+            </button>
+        </td>
+    </tr>
+</script>

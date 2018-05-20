@@ -2,6 +2,7 @@
 
 namespace OnlineShop.Web.Models
 {
+    [Serializable]
     public class ProductViewModel
     {
         public int Id { get; set; }

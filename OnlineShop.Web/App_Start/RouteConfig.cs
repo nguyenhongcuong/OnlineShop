@@ -16,6 +16,13 @@ namespace OnlineShop.Web
                 new { botdetect = @"(.*)BotDetectCaptcha\.ashx" });
 
             routes.MapRoute(
+                name: "Cart" ,
+                url: "gio-hang" ,
+                defaults: new { controller = "ShoppingCart" , action = "Index" , id = UrlParameter.Optional } ,
+                namespaces: new string[] { "OnlineShop.Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Login" ,
                 url: "dang-nhap" ,
                 defaults: new { controller = "Account" , action = "Login" , id = UrlParameter.Optional } ,
